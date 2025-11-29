@@ -77,4 +77,4 @@ Ikuti langkah-langkah di bawah ini untuk menjalankan proyek secara lokal:
 
 ---
 
-Lisensi MIT &copy; 2025 [Nama Anda]
+Lisensi MIT &copy; 2025 [Dimas Suhendra]
