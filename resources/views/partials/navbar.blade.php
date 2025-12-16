@@ -54,7 +54,7 @@
         </div>
 
         <a href="/login" class="{{ Request::is('login') ? 'active' : '' }}">
-            <i class="fas fa-sign-in-alt"></i> Login
+            <i class="fas fa-sign-in-alt"></i> Masuk Akun
         </a>
     </div>
 </nav>
