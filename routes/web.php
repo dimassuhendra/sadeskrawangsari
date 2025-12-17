@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Auth\LoginWargaController;
 use App\Http\Controllers\Auth\RegisterWargaController;
+
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\DashboardWargaController;
+use App\Http\Controllers\ProfileWargaController;
+
 use Illuminate\Support\Facades\Route;
 
 // Halaman Utama
@@ -19,10 +22,9 @@ Route::middleware(['guest'])->group(function () {
 });
 
 // Authenticated (Sudah Login)
-Route::middleware(['auth:warga'])->group(function () {
-    
-    // PERBAIKAN DI SINI: Panggil Controller, jangan langsung View
+Route::middleware(['auth:warga'])->group(function () {    
     Route::get('/dashboard-warga', [DashboardWargaController::class, 'index'])->name('dashboard.warga');
-    
     Route::post('/logout-warga', [LoginWargaController::class, 'logout'])->name('logout.warga');
+    Route::get('/profil-saya', [ProfileWargaController::class, 'index'])->name('profile.warga');
+    Route::post('/profil-saya/update', [ProfileWargaController::class, 'update'])->name('profile.update');
 });

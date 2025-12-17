@@ -12,24 +12,27 @@ class Warga extends Authenticatable
     protected $primaryKey = 'nik';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable =
-        [
-            'nik',
-            'no_kk',
-            'password',
-            'nama_lengkap',
-            'tempat_lahir',
-            'tanggal_lahir',
-            'jenis_kelamin',
-            'alamat_jalan',
-            'rt_rw',
-            'kel_desa',
-            'kecamatan',
-            'agama',
-            'status_perkawinan',
-            'pekerjaan',
-            'email'
-        ];
+    protected $fillable = [
+        'nik',
+        'no_kk',
+        'nama_lengkap',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'jenis_kelamin',
+        'alamat_jalan',
+        'rt_rw',
+        'kel_desa',
+        'kecamatan',
+        'agama',
+        'status_perkawinan',
+        'pekerjaan',
+        'kewarganegaraan',
+        'email',
+        'password',
+        'no_hp',
+        'foto',
+        'is_active'
+    ];
     protected $hidden = ['password', 'remember_token'];
 
     public function getAuthIdentifierName()
