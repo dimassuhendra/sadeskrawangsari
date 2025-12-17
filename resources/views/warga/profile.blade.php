@@ -4,8 +4,9 @@
 
 @section('content')
     <div class="welcome-card-2">
-        <h1>Halo, {{ $user->nama_lengkap }}!</h1>
-        <p>Selamat datang di sistem layanan mandiri Desa Krawang Sari. NIK Anda: {{ $user->nik }}</p>
+        <h1>Profil Warga Digital</h1>
+        <p>Selamat datang di ruang data pribadi Anda. Pastikan informasi Anda tetap akurat untuk pelayanan desa yang lebih
+            cepat.</p>
     </div>
 
     <div class="profile-layout-wrapper">
@@ -60,7 +61,8 @@
                                 <div class="info-row"><span>Status:</span> <strong>{{ $user->status_perkawinan }}</strong>
                                 </div>
                                 <div class="info-row"><span>Warga Negara:</span>
-                                    <strong>{{ $user->kewarganegaraan }}</strong></div>
+                                    <strong>{{ $user->kewarganegaraan }}</strong>
+                                </div>
                             </div>
 
                             <div class="info-group-title">Alamat Domisili</div>
@@ -130,7 +132,8 @@
                                 <select name="status_perkawinan">
                                     @foreach(['Kawin', 'Belum Kawin', 'Cerai Hidup', 'Cerai Mati'] as $stat)
                                         <option value="{{ $stat }}" {{ $user->status_perkawinan == $stat ? 'selected' : '' }}>
-                                            {{ $stat }}</option>
+                                            {{ $stat }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
