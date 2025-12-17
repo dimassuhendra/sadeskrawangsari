@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterWargaController;
 
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\DashboardWargaController;
+use App\Http\Controllers\PengajuanSuratController;
 use App\Http\Controllers\ProfileWargaController;
 use App\Http\Controllers\KeluargaController;
 
@@ -26,6 +27,9 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth:warga'])->group(function () {
     Route::get('/dashboard-warga', [DashboardWargaController::class, 'index'])->name('dashboard.warga');
     Route::post('/logout-warga', [LoginWargaController::class, 'logout'])->name('logout.warga');
+    Route::get('/buat-pengajuan', [PengajuanSuratController::class, 'index'])->name('pengajuan.katalog');
+    Route::get('/buat-pengajuan/{jenis}', [PengajuanSuratController::class, 'create'])->name('pengajuan.create');
+    Route::post('/buat-pengajuan/store', [PengajuanSuratController::class, 'store'])->name('pengajuan.store');
     Route::get('/profil-saya', [ProfileWargaController::class, 'index'])->name('profile.warga');
     Route::post('/profil-saya/update', [ProfileWargaController::class, 'update'])->name('profile.update');
     Route::get('/data-keluarga', [KeluargaController::class, 'index'])->name('keluarga.warga');
