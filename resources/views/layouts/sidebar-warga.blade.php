@@ -64,7 +64,10 @@ $tahun = date('Y');
         <small class="menu-label"
             style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Layanan
             Publik</small>
-        <a href="#" class="menu-item"><i class="fas fa-bullhorn"></i> Pengaduan Warga</a>
+        <a href="{{ route('pengaduan') }}"
+            class="menu-item {{ request()->routeIs('pengaduan') ? 'active' : '' }}">
+            <i class="fas fa-bullhorn"></i> Buat Pengajuan
+        </a>
 
         <small class="menu-label"
             style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Data
