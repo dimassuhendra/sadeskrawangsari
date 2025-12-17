@@ -159,7 +159,7 @@
             <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Lengkapi data di bawah untuk membuat akun.
             </p>
 
-            <form action="{{ route('register') }}" method="POST">
+            <form action="{{ route('register.warga') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label>Nomor Induk Kependudukan (NIK)</label>
@@ -187,7 +187,7 @@
                 <button type="submit" class="btn-register">DAFTAR SEKARANG</button>
 
                 <p style="text-align: center; margin-top: 20px; font-size: 14px;">
-                    Sudah punya akun? <a href="{{ route('login-warga') }}"
+                    Sudah punya akun? <a href="{{ route('login.warga') }}"
                         style="color: #48B3AF; text-decoration: none; font-weight: 600;">Login di sini</a>
                 </p>
             </form>

@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <a href="/login" class="{{ Request::is('login') ? 'active' : '' }}">
+        <a href="/login-warga" class="{{ Request::is('login') ? 'active' : '' }}">
             <i class="fas fa-sign-in-alt"></i> Masuk Akun
         </a>
     </div>
