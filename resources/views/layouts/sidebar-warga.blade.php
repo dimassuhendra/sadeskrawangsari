@@ -70,7 +70,10 @@ $tahun = date('Y');
             class="menu-item {{ request()->routeIs('profile.warga') ? 'active' : '' }}">
             <i class="fas fa-user-circle"></i> Profil Saya
         </a>
-        <a href="#" class="menu-item"><i class="fas fa-id-card"></i> Data Keluarga</a>
+        <a href="{{ route('keluarga.warga') }}"
+            class="menu-item {{ request()->routeIs('keluarga.warga') ? 'active' : '' }}">
+            <i class="fas fa-user-circle"></i> Data Keluarga
+        </a>
 
         <div class="sidebar-footer" style="margin-top: auto; padding: 20px;">
             <form action="{{ route('logout.warga') }}" method="POST">

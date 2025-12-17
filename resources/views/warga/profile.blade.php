@@ -4,6 +4,11 @@
 
 @section('content')
     <div class="profile-layout" style="max-width: 1250px; margin: 0 auto; padding: 20px;">
+        <div class="header-section" style="margin-bottom: 30px;">
+            <h2 style="font-family: 'Domine'; color: var(--color-1);">Manajemen Data Keluarga</h2>
+            <p>Kelola anggota keluarga Anda untuk mempermudah administrasi desa.</p>
+        </div>
+
         @if(session('success'))
             <div class="alert-success"><i class="fas fa-check-circle"></i> {{ session('success') }}</div>
         @endif
@@ -14,7 +19,7 @@
 
                 <div class="profile-info-side" style="flex: 1.2; min-width: 380px;">
                     <div class="info-card"
-                        style="background: var(--color-1); color: white; padding: 40px 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); height: 100%; display: flex; flex-direction: column; box-sizing: border-box;">
+                        style="background: var(--color-2); color: white; padding: 40px 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); height: 100%; display: flex; flex-direction: column; box-sizing: border-box;">
 
                         <div class="user-avatar-section" style="text-align: center; margin-bottom: 30px;">
                             <div class="image-wrapper" style="position: relative; display: inline-block;">
@@ -48,13 +53,15 @@
                                 <div class="info-row"><span>TTL:</span> <strong>{{ $user->tempat_lahir }},
                                         {{ \Carbon\Carbon::parse($user->tanggal_lahir)->format('d-m-Y') }}</strong></div>
                                 <div class="info-row"><span>Gender:</span>
-                                    <strong>{{ $user->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</strong></div>
+                                    <strong>{{ $user->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</strong>
+                                </div>
                                 <div class="info-row"><span>Agama:</span> <strong>{{ $user->agama }}</strong></div>
                                 <div class="info-row"><span>Pekerjaan:</span> <strong>{{ $user->pekerjaan }}</strong></div>
                                 <div class="info-row"><span>Status:</span> <strong>{{ $user->status_perkawinan }}</strong>
                                 </div>
                                 <div class="info-row"><span>Warga Negara:</span>
-                                    <strong>{{ $user->kewarganegaraan }}</strong></div>
+                                    <strong>{{ $user->kewarganegaraan }}</strong>
+                                </div>
                             </div>
 
                             <div class="info-group-title">Alamat Domisili</div>
@@ -127,7 +134,8 @@
                                 <select name="status_perkawinan">
                                     @foreach(['Kawin', 'Belum Kawin', 'Cerai Hidup', 'Cerai Mati'] as $stat)
                                         <option value="{{ $stat }}" {{ $user->status_perkawinan == $stat ? 'selected' : '' }}>
-                                            {{ $stat }}</option>
+                                            {{ $stat }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
