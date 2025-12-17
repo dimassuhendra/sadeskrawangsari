@@ -3,6 +3,11 @@
 @section('title', 'Form Pengajuan')
 
 @section('content')
+    <div class="welcome-card-2">
+        <h1>Layanan Surat Mandiri - {{ $jenis_surat }}</h1>
+        <p>Pilih jenis surat yang ingin Anda ajukan di bawah ini dengan mudah dan cepat.</p>
+    </div>
+
     <div class="form-container" style="max-width: 700px; margin: auto;">
         <div class="card"
             style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">

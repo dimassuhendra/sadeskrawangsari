@@ -12,18 +12,18 @@
         <div class="surat-grid">
             @php
                 $daftar_surat = [
-                    ['name' => 'SKTM', 'slug' => 'sktm', 'icon' => 'fa-hands-helping', 'desc' => 'Surat Keterangan Tidak Mampu.', 'color' => '#4e73df'],
-                    ['name' => 'Beasiswa', 'slug' => 'beasiswa', 'icon' => 'fa-graduation-cap', 'desc' => 'Keperluan pengajuan beasiswa.', 'color' => '#1cc88a'],
-                    ['name' => 'IUMK', 'slug' => 'iumk', 'icon' => 'fa-store', 'desc' => 'Izin Usaha Mikro Kecil.', 'color' => '#36b9cc'],
-                    ['name' => 'Domisili', 'slug' => 'domisili', 'icon' => 'fa-map-marker-alt', 'desc' => 'Keterangan domisili tinggal.', 'color' => '#f6c23e'],
-                    ['name' => 'Penghasilan', 'slug' => 'penghasilan', 'icon' => 'fa-wallet', 'desc' => 'Rincian penghasilan orang tua/pribadi.', 'color' => '#e74a3b'],
-                    ['name' => 'Belum Menikah', 'slug' => 'belum-menikah', 'icon' => 'fa-user-friends', 'desc' => 'Status belum pernah menikah.', 'color' => '#6f42c1'],
-                    ['name' => 'Kehilangan', 'slug' => 'kehilangan-dok', 'icon' => 'fa-file-alt', 'desc' => 'Pengantar kehilangan dokumen.', 'color' => '#fd7e14'],
-                    ['name' => 'Kematian', 'slug' => 'kematian', 'icon' => 'fa-skull', 'desc' => 'Surat keterangan kematian warga.', 'color' => '#5a5c69'],
-                    ['name' => 'Pengantar KTP', 'slug' => 'pengantar-ktp', 'icon' => 'fa-id-card', 'desc' => 'Permohonan KTP baru/perpanjang.', 'color' => '#20c997'],
-                    ['name' => 'Jaminan Kesehatan', 'slug' => 'jaminan-kesehatan', 'icon' => 'fa-hospital-user', 'desc' => 'Keterangan jaminan kesehatan.', 'color' => '#d63384'],
-                    ['name' => 'Izin Keramaian', 'slug' => 'izin-keramaian', 'icon' => 'fa-users', 'desc' => 'Izin mengadakan acara publik.', 'color' => '#48b3af'],
-                    ['name' => 'Pindah Domisili', 'slug' => 'pindah-domisili', 'icon' => 'fa-truck-moving', 'desc' => 'Pengantar pindah alamat.', 'color' => '#007bff'],
+                    ['name' => 'Surat Keterangan Tidak Mampu', 'slug' => 'sktm', 'icon' => 'fa-hands-helping', 'desc' => 'Surat Keterangan Tidak Mampu.', 'color' => '#4e73df'],
+                    ['name' => 'Surat Rekomendasi Beasiswa', 'slug' => 'beasiswa', 'icon' => 'fa-graduation-cap', 'desc' => 'Keperluan pengajuan beasiswa.', 'color' => '#1cc88a'],
+                    ['name' => 'Surat IUMK', 'slug' => 'iumk', 'icon' => 'fa-store', 'desc' => 'Izin Usaha Mikro Kecil.', 'color' => '#36b9cc'],
+                    ['name' => 'Surat Keterangan Domisili', 'slug' => 'domisili', 'icon' => 'fa-map-marker-alt', 'desc' => 'Keterangan domisili tinggal.', 'color' => '#f6c23e'],
+                    ['name' => 'Surat Keterangan Penghasilan', 'slug' => 'penghasilan', 'icon' => 'fa-wallet', 'desc' => 'Rincian penghasilan orang tua/pribadi.', 'color' => '#e74a3b'],
+                    ['name' => 'Surat Keterangan Belum Menikah', 'slug' => 'belum-menikah', 'icon' => 'fa-user-friends', 'desc' => 'Status belum pernah menikah.', 'color' => '#6f42c1'],
+                    ['name' => 'Surat Kehilangan', 'slug' => 'kehilangan-dok', 'icon' => 'fa-file-alt', 'desc' => 'Pengantar kehilangan dokumen.', 'color' => '#fd7e14'],
+                    ['name' => 'Surat Kematian', 'slug' => 'kematian', 'icon' => 'fa-skull', 'desc' => 'Surat keterangan kematian warga.', 'color' => '#5a5c69'],
+                    ['name' => 'Surat Pengantar KTP', 'slug' => 'pengantar-ktp', 'icon' => 'fa-id-card', 'desc' => 'Permohonan KTP baru/perpanjang.', 'color' => '#20c997'],
+                    ['name' => 'Surat Jaminan Kesehatan', 'slug' => 'jaminan-kesehatan', 'icon' => 'fa-hospital-user', 'desc' => 'Keterangan jaminan kesehatan.', 'color' => '#d63384'],
+                    ['name' => 'Surat Izin Keramaian', 'slug' => 'izin-keramaian', 'icon' => 'fa-users', 'desc' => 'Izin mengadakan acara publik.', 'color' => '#48b3af'],
+                    ['name' => 'Surat Pengantar Pindah Domisili', 'slug' => 'pindah-domisili', 'icon' => 'fa-truck-moving', 'desc' => 'Pengantar pindah alamat.', 'color' => '#007bff'],
                 ];
             @endphp
 
