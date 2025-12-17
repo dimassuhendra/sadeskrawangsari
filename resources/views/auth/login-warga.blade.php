@@ -189,7 +189,18 @@
             <h1>Masuk Akun Penduduk</h1>
             <p>Masukkan NIK dan Password Anda untuk melanjutkan.</p>
 
-            <form action="{{ route('login') }}" method="POST">
+            @if ($errors->any())
+                <div
+                    style="background: #fee2e2; border: 1px solid #ef4444; color: #b91c1c; padding: 10px; border-radius: 8px; margin-bottom: 20px; font-size: 14px;">
+                    <ul style="list-style: none; padding: 0;">
+                        @foreach ($errors->all() as $error)
+                            <li>⚠️ {{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('login.warga') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label>NIK</label>
@@ -210,7 +221,7 @@
 
                 <div class="footer-links">
                     <div class="footer-links-top">
-                        <span>Belum punya akun? <a href="{{ route('register') }}">Daftar</a></span>
+                        <span>Belum punya akun? <a href="{{ route('register.warga') }}">Daftar</a></span>
                         <a href="#">Lupa Password?</a>
                     </div>
                     <a href="{{ route('landingpage') }}">Kembali ke Halaman Utama</a>

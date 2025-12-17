@@ -13,7 +13,7 @@ class CekWarga
     {
         // Jika user TIDAK login melalui guard warga, tendang ke halaman login
         if (!Auth::guard('warga')->check()) {
-            return redirect()->route('login-warga')->with('error', 'Silakan login terlebih dahulu.');
+            return redirect()->route('login.warga')->with('error', 'Silakan login terlebih dahulu.');
         }
 
         return $next($request);
