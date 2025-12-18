@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'isWarga' => \App\Http\Middleware\CekWarga::class,
-            'isAdmin' => \App\Http\Middleware\Authenticate::class,
+            'isAdmin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

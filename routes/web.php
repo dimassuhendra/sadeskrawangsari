@@ -1,7 +1,7 @@
 <?php
-
 use App\Http\Controllers\Auth\LoginWargaController;
 use App\Http\Controllers\Auth\RegisterWargaController;
+use App\Http\Controllers\Auth\LoginAdminController;
 
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\DashboardWargaController;
@@ -12,19 +12,22 @@ use App\Http\Controllers\KeluargaController;
 
 use Illuminate\Support\Facades\Route;
 
-// Halaman Utama
+// Route Pengunjung
 Route::get('/', [LandingPageController::class, 'index'])->name('landingpage');
 
-// Guest Only (Belum Login)
+// Login Warga
 Route::middleware(['guest'])->group(function () {
     Route::get('/login-warga', [LoginWargaController::class, 'showLoginForm'])->name('login.warga');
     Route::post('/login-warga', [LoginWargaController::class, 'login']);
+    Route::get('/login-admin', [LoginAdminController::class, 'showLoginForm'])->name('login.admin');
+    Route::post('/login-admin', [LoginAdminController::class, 'login']);
+
 
     Route::get('/register-warga', [RegisterWargaController::class, 'showRegistrationForm'])->name('register.warga');
     Route::post('/register-warga', [RegisterWargaController::class, 'register']);
 });
 
-// Authenticated (Sudah Login)
+// Route Warga
 Route::middleware(['auth:warga'])->group(function () {
     Route::get('/dashboard-warga', [DashboardWargaController::class, 'index'])->name('dashboard.warga');
     Route::post('/logout-warga', [LoginWargaController::class, 'logout'])->name('logout.warga');
@@ -38,4 +41,9 @@ Route::middleware(['auth:warga'])->group(function () {
     Route::get('/data-keluarga', [KeluargaController::class, 'index'])->name('keluarga.warga');
     Route::post('/data-keluarga/store', [KeluargaController::class, 'storeKeluarga'])->name('keluarga.store');
     Route::post('/data-keluarga/add-anggota', [KeluargaController::class, 'addAnggota'])->name('keluarga.addAnggota');
+});
+
+// Route Admin
+Route::middleware(['auth:admin'])->group(function () {
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
