@@ -6,25 +6,43 @@ use App\Models\Warga;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\Exportable;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 
-class PendudukExport implements FromQuery, WithHeadings, WithMapping
+class PendudukExport extends DefaultValueBinder implements FromQuery, WithHeadings, WithMapping, WithCustomValueBinder
 {
-    protected $columns;
-    protected $search;
+    use Exportable;
 
-    public function __construct($columns, $search = null)
+    protected $columns;
+    protected $filters;
+
+    public function __construct($columns, $filters = [])
     {
         $this->columns = $columns;
-        $this->search = $search;
+        $this->filters = $filters;
     }
 
     public function query()
     {
         $query = Warga::query();
-        if ($this->search) {
-            $query->where('nama_lengkap', 'like', '%' . $this->search . '%')
-                ->orWhere('nik', 'like', '%' . $this->search . '%');
+
+        if (!empty($this->filters['search'])) {
+            $search = $this->filters['search'];
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_lengkap', 'like', "%$search%")
+                    ->orWhere('nik', 'like', "%$search%");
+            });
         }
+        if (!empty($this->filters['agama']))
+            $query->where('agama', $this->filters['agama']);
+        if (!empty($this->filters['status_perkawinan']))
+            $query->where('status_perkawinan', $this->filters['status_perkawinan']);
+        if (!empty($this->filters['jenis_kelamin']))
+            $query->where('jenis_kelamin', $this->filters['jenis_kelamin']);
+
         return $query;
     }
 
@@ -39,8 +57,20 @@ class PendudukExport implements FromQuery, WithHeadings, WithMapping
     {
         $data = [];
         foreach ($this->columns as $col) {
-            $data[] = $warga->{$col} ?? '-';
+            $value = $warga->{$col} ?? '-';
+            $data[] = $value;
         }
         return $data;
+    }
+
+    // Fungsi vital: Memaksa NIK dan No_KK menjadi tipe data STRING agar tidak berubah di Excel
+    public function bindValue(Cell $cell, $value)
+    {
+        if (is_numeric($value) && strlen($value) > 10) {
+            $cell->setValueExplicit($value, DataType::TYPE_STRING);
+            return true;
+        }
+
+        return parent::bindValue($cell, $value);
     }
 }

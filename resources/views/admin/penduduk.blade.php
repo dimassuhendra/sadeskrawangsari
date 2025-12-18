@@ -1,217 +1,269 @@
 @extends('layouts.app-admin')
 
-@section('title', 'Data Penduduk')
+@section('title', 'Manajemen Penduduk')
 
 @section('content')
     <div class="welcome-card-2">
         <h1>Manajemen Data Penduduk</h1>
-        <p>Terdapat <span class="badge bg-primary">{{ $totalWarga }}</span> warga sudah tercatat dari <span
-                class="badge bg-success"> {{ $totalKeluarga }}</span> Kepala Keluarga</p>
+        <p>Total: <span class="badge bg-primary">{{ $totalWarga }}</span> Jiwa | <span
+                class="badge bg-success">{{ $totalKeluarga }}</span> KK</p>
     </div>
 
-    <div class="container-fluid p-4 main-content-bg">
-        {{-- 3 CHARTS --}}
+    <div class="container-fluid p-4" style="background: #f8f9fa;">
+        {{-- STATISTIC CHARTS --}}
         <div class="row g-3 mb-4">
             <div class="col-md-4">
-                <div class="card border-0 shadow-sm p-3 chart-card-wrapper">
-                    <h6 class="text-muted fw-bold small text-uppercase mb-3">Gender</h6>
-                    <div class="chart-box"><canvas id="genderChart"></canvas></div>
+                <div class="card border-0 shadow-sm p-3">
+                    <h6 class="text-muted fw-bold small mb-3">GENDER</h6>
+                    <div style="height: 200px;"><canvas id="genderChart"></canvas></div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card border-0 shadow-sm p-3 chart-card-wrapper">
-                    <h6 class="text-muted fw-bold small text-uppercase mb-3">Status Perkawinan</h6>
-                    <div class="chart-box"><canvas id="nikahChart"></canvas></div>
+                <div class="card border-0 shadow-sm p-3">
+                    <h6 class="text-muted fw-bold small mb-3">STATUS PERKAWINAN</h6>
+                    <div style="height: 200px;"><canvas id="nikahChart"></canvas></div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card border-0 shadow-sm p-3 chart-card-wrapper">
-                    <h6 class="text-muted fw-bold small text-uppercase mb-3">Kelompok Usia</h6>
-                    <div class="chart-box"><canvas id="ageChart"></canvas></div>
+                <div class="card border-0 shadow-sm p-3">
+                    <h6 class="text-muted fw-bold small mb-3">KELOMPOK USIA</h6>
+                    <div style="height: 200px;"><canvas id="ageChart"></canvas></div>
                 </div>
             </div>
         </div>
 
-        {{-- FILTER & ACTION --}}
-        <div class="card border-0 shadow-sm mb-3">
+        {{-- ADVANCED FILTER --}}
+        <div class="card border-0 shadow-sm mb-4">
             <div class="card-body">
-                <form action="{{ route('admin.penduduk') }}" method="GET" id="filterForm" class="row g-2">
-                    <div class="col-md-4">
-                        <label class="small text-muted fw-bold">Pencarian</label>
-                        <input type="text" name="search" class="form-control" placeholder="Cari NIK, Nama, atau KK..."
-                            value="{{ request('search') }}">
+                <form action="{{ route('admin.penduduk') }}" method="GET" id="mainFilterForm" class="row g-3">
+                    <div class="col-md-3">
+                        <label class="small fw-bold">Pencarian Umum</label>
+                        <input type="text" name="search" class="form-control form-control-sm"
+                            placeholder="NIK / Nama / No. KK" value="{{ request('search') }}">
                     </div>
                     <div class="col-md-2">
-                        <label class="small text-muted fw-bold">Urutan</label>
-                        <select name="sort" class="form-select" onchange="this.form.submit()">
-                            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
-                            <option value="nama" {{ request('sort') == 'nama' ? 'selected' : '' }}>Nama (A-Z)</option>
-                            <option value="nik" {{ request('sort') == 'nik' ? 'selected' : '' }}>NIK</option>
+                        <label class="small fw-bold">Jenis Kelamin</label>
+                        <select name="jenis_kelamin" class="form-select form-select-sm">
+                            <option value="">Semua</option>
+                            <option value="L" {{ request('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                            <option value="P" {{ request('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan</option>
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label class="small text-muted fw-bold">Tampilkan</label>
-                        <select name="per_page" class="form-select" onchange="this.form.submit()">
-                            @foreach([10, 20, 50, 100, 200] as $size)
-                                <option value="{{ $size }}" {{ request('per_page') == $size ? 'selected' : '' }}>{{ $size }} data
+                        <label class="small fw-bold">Agama</label>
+                        <select name="agama" class="form-select form-select-sm">
+                            <option value="">Semua</option>
+                            @foreach(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha', 'Khonghucu'] as $ag)
+                                <option value="{{ $ag }}" {{ request('agama') == $ag ? 'selected' : '' }}>{{ $ag }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="small fw-bold">Status Nikah</label>
+                        <select name="status_perkawinan" class="form-select form-select-sm">
+                            <option value="">Semua</option>
+                            @foreach(['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati'] as $st)
+                                <option value="{{ $st }}" {{ request('status_perkawinan') == $st ? 'selected' : '' }}>{{ $st }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-4 d-flex align-items-end gap-2">
-                        <button type="submit" class="btn btn-filter flex-grow-1">Filter</button>
-                        <button type="button" class="btn btn-success" onclick="openDownloadModal()">
-                            <i class="fas fa-download"></i>
-                        Download
-                            </button>
-                            <a href="{{ route('admin.penduduk') }}" class="btn btn-outline-secondary"><i class="fas fa-sync"></i></a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            {{-- TABLE --}}
-            <div class="card border-0 shadow-sm">
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th class="ps-3">No</th>
-                                    <th>No. KK</th>
-                                    <th>NIK</th>
-                                    <th>Nama Lengkap</th>
-                                    <th>WhatsApp</th>
-                                    <th class="text-center pe-3">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($warga as $item)
-                                    <tr>
-                                        <td class="ps-3">{{ $loop->iteration + $warga->firstItem() - 1 }}</td>
-                                        <td class="text-monospace">{{ $item->no_kk_masked ?? $item->no_kk }}</td>
-                                        <td class="text-monospace">{{ $item->nik_masked ?? $item->nik }}</td>
-                                        <td class="fw-bold">{{ $item->nama_lengkap }}</td>
-                                        <td>{{ $item->no_hp ?? '-' }}</td>
-                                        <td class="text-center pe-3">
-                                            <button class="btn btn-sm btn-info text-white" onclick="showDetail('{{ $item->nik }}')">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <form action="{{ route('penduduk.destroy', $item->nik) }}" method="POST"
-                                                class="d-inline" onsubmit="return confirm('Hapus data ini?')">
-                                                @csrf @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr><td colspan="6" class="text-center py-5 text-muted">Data tidak ditemukan</td></tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            {{-- PAGINATION --}}
-            <div class="d-flex justify-content-between align-items-center mt-4 pb-5">
-                <div class="text-muted small">
-                    Menampilkan {{ $warga->firstItem() ?? 0 }} - {{ $warga->lastItem() ?? 0 }} dari {{ $warga->total() }} data
-                </div>
-                <div class="pagination-wrapper">
-                    {{ $warga->appends(request()->query())->onEachSide(1)->links('pagination::bootstrap-5') }}
-                </div>
-            </div>
-        </div>
-
-        {{-- MODAL DETAIL --}}
-        <div id="wargaModal" class="custom-modal">
-            <div class="modal-content-box shadow-lg" style="max-width: 500px;">
-                <div class="modal-header-custom p-3 d-flex justify-content-between align-items-center text-white">
-                    <h6 class="mb-0 fw-bold">Detail Penduduk</h6>
-                    <button class="btn-close btn-close-white" onclick="closeWargaModal()"></button>
-                </div>
-                <div class="modal-body-custom p-4" id="modalContent"></div>
-            </div>
-        </div>
-
-        {{-- MODAL DOWNLOAD --}}
-        <div id="downloadModal" class="custom-modal">
-            <div class="modal-content-box shadow-lg" style="max-width: 450px;">
-                <div class="modal-header-custom p-3 text-white">
-                    <h6 class="mb-0 fw-bold">Pengaturan Download</h6>
-                    <button class="btn-close btn-close-white" onclick="closeDownloadModal()"></button>
-                </div>
-                <form action="{{ route('admin.penduduk.export') }}" method="GET">
-                    <input type="hidden" name="search" value="{{ request('search') }}">
-                    <div class="modal-body-custom p-4">
-                        <label class="small fw-bold mb-2 d-block text-muted">Pilih Kolom Data:</label>
-                        <div class="row g-2">
-                            @php $cols = ['nik', 'no_kk', 'nama_lengkap', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'alamat_jalan', 'pekerjaan', 'no_hp']; @endphp
-                            @foreach($cols as $col)
-                                <div class="col-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="columns[]" value="{{ $col }}" id="dl_{{ $col }}" checked>
-                                        <label class="form-check-label small" for="dl_{{ $col }}">{{ ucwords(str_replace('_', ' ', $col)) }}</label>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="mt-3 pt-3 border-top">
-                            <label class="small fw-bold mb-1 d-block text-muted">Format File:</label>
-                            <select name="format" class="form-select form-select-sm">
-                                <option value="xlsx">Excel (.xlsx)</option>
-                                <option value="csv">CSV (.csv)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="p-3 bg-light text-end">
-                        <button type="submit" class="btn btn-primary btn-sm px-4">Download Sekarang</button>
+                    <div class="col-md-3 d-flex align-items-end gap-2">
+                        <button type="submit" class="btn btn-primary-2 btn-sm flex-grow-1">Terapkan Filter</button>
+                        <button type="button" class="btn btn-success-2 btn-sm" onclick="openDownloadModal()">
+                            <i class="fas fa-file-export"></i> Export
+                        </button>
+                        <a href="{{ route('admin.penduduk') }}" class="btn btn-light btn-sm"><i class="fas fa-sync"></i></a>
                     </div>
                 </form>
             </div>
         </div>
 
-        <style>
-            .main-content-bg { background: #f8f9fa; min-height: 100vh; }
-            .chart-box { height: 180px; }
-            .btn-filter { background-color: #476eae; color: white; border: none; }
-            .btn-filter:hover { background-color: #3a5a8f; color: white; }
+        {{-- TABLE --}}
+        <div class="card border-0 shadow-sm">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-3">No</th>
+                            <th>NIK / Nama</th>
+                            <th>Alamat</th>
+                            <th>Status / Pekerjaan</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($warga as $item)
+                            <tr>
+                                <td class="ps-3">{{ $loop->iteration + $warga->firstItem() - 1 }}</td>
+                                <td>
+                                    <div class="fw-bold">{{ $item->nama_lengkap }}</div>
+                                    <small class="text-muted">{{ $item->nik }}</small>
+                                </td>
+                                <td class="small">{{ $item->alamat_jalan ?? '-' }}</td>
+                                <td>
+                                    <span class="badge bg-light text-dark border">{{ $item->status_perkawinan }}</span><br>
+                                    <small>{{ $item->pekerjaan }}</small>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-info text-white" onclick="showDetail('{{ $item->nik }}')"><i
+                                            class="fas fa-eye"></i></button>
+                                    <form action="{{ route('penduduk.destroy', $item->nik) }}" method="POST" class="d-inline">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Hapus?')"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center py-5">Data tidak ditemukan sesuai filter.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-            /* Pagination Styling */
-            .pagination .page-link { border: none; color: #476eae; margin: 0 2px; border-radius: 6px; padding: 8px 14px; }
-            .pagination .page-item.active .page-link { background-color: #476eae; color: white !important; }
+        <div class="d-flex justify-content-between align-items-center mt-4 pb-5">
+            <div class="text-muted small">Data {{ $warga->firstItem() }} - {{ $warga->lastItem() }} dari
+                {{ $warga->total() }}
+            </div>
+            {{ $warga->appends(request()->query())->onEachSide(1)->links('pagination::bootstrap-5') }}
+        </div>
+    </div>
 
-            /* Modal System */
-            .custom-modal { 
-                display: none; position: fixed; inset: 0; 
-                background: rgba(0,0,0,0.5); z-index: 1050; 
-                backdrop-filter: blur(2px);
-            }
-            .modal-content-box { background: #fff; margin: 10vh auto; border-radius: 12px; overflow: hidden; }
-            .modal-header-custom { background-color: #476eae; }
-            .modal-body-custom { max-height: 70vh; overflow-y: auto; }
-        </style>
+    {{-- MODAL DETAIL (DENGAN FOTO) --}}
+    <div id="wargaModal" class="custom-modal">
+        <div class="modal-content-box" style="max-width: 800px;"> {{-- Lebarkan sedikit untuk foto --}}
+            <div class="modal-header-custom p-3 d-flex justify-content-between text-white" style="background: #476eae;">
+                <h6 class="mb-0">Detail Informasi Penduduk</h6>
+                <button class="btn-close btn-close-white" onclick="closeWargaModal()"></button>
+            </div>
+            <div class="modal-body p-4" id="modalContent">
+                {{-- Content Loaded by JS --}}
+            </div>
+        </div>
+    </div>
+
+    {{-- MODAL DOWNLOAD --}}
+    <div id="downloadModal" class="custom-modal">
+        <div class="modal-content-box" style="max-width: 500px;">
+            <div class="modal-header-custom p-3 text-white d-flex justify-content-between align-center" style="background: #48B3AF; width: 100%;">
+                <h6 class="mb-0">Konfigurasi Export Excel</h6>
+                <button class="btn-close btn-close-white" onclick="closeDownloadModal()"></button>
+            </div>
+            <form action="{{ route('admin.penduduk.export') }}" method="GET">
+                <input type="hidden" name="search" value="{{ request('search') }}">
+                <input type="hidden" name="jenis_kelamin" value="{{ request('jenis_kelamin') }}">
+                <input type="hidden" name="agama" value="{{ request('agama') }}">
+                <input type="hidden" name="status_perkawinan" value="{{ request('status_perkawinan') }}">
+
+                <div class="p-4">
+                    <p class="small text-muted mb-3">Pilih kolom yang ingin disertakan dalam file:</p>
+                    <div class="row g-2">
+                        @php $fields = ['nik', 'no_kk', 'nama_lengkap', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'alamat_jalan', 'agama', 'status_perkawinan', 'pekerjaan', 'no_hp', 'email']; @endphp
+                        @foreach($fields as $f)
+                            <div class="col-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="columns[]" value="{{ $f }}"
+                                        id="c_{{ $f }}" checked>
+                                    <label class="form-check-label small"
+                                        for="c_{{ $f }}">{{ ucwords(str_replace('_', ' ', $f)) }}</label>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="mt-4 border-top pt-3">
+                        <button type="submit" class="btn btn-success-2 w-100">Mulai Download (.xlsx)</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        .btn-primary-2 {
+            background-color: #476eae;
+            color: white;
+        }
+        .btn-success-2 {
+            background-color: #48B3AF;
+            color: white;
+        }
+        .custom-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-content-box {
+            background: white;
+            margin: 5vh auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .table-detail th {
+            background: #f8f9fa;
+            width: 35%;
+            color: #666;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .table-detail td {
+            font-size: 0.9rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .img-detail {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 4px solid #f8f9fa;
+        }
+
+        .pagination .page-link {
+            border: none;
+            padding: 8px 16px;
+            margin: 0 3px;
+            border-radius: 8px;
+            color: #476eae;
+        }
+
+        .pagination .page-item.active .page-link {
+            background: #476eae;
+            color: white;
+        }
+    </style>
 @endsection
 
 @section('extra-script')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Gender Chart
+            // 1. Gender Chart
             new Chart(document.getElementById('genderChart'), {
                 type: 'doughnut',
                 data: {
-                    labels: ['L', 'P'],
+                    labels: ['Laki-laki', 'Perempuan'],
                     datasets: [{
-                        data: [{{ $genderStats->where('jenis_kelamin', 'L')->first()->total ?? 0 }}, {{ $genderStats->where('jenis_kelamin', 'P')->first()->total ?? 0 }}],
+                        data: [
+                                {{ $genderStats->where('jenis_kelamin', 'L')->first()->total ?? 0 }},
+                            {{ $genderStats->where('jenis_kelamin', 'P')->first()->total ?? 0 }}
+                        ],
                         backgroundColor: ['#476eae', '#f6c23e']
                     }]
                 },
-                options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+                options: { maintainAspectRatio: false }
             });
 
-            // Status Nikah Chart
+            // 2. Status Chart
             new Chart(document.getElementById('nikahChart'), {
                 type: 'pie',
                 data: {
@@ -221,10 +273,10 @@
                         backgroundColor: ['#1cc88a', '#e74a3b', '#36b9cc', '#f6c23e']
                     }]
                 },
-                options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+                options: { maintainAspectRatio: false }
             });
 
-            // Age Chart
+            // 3. Age Chart
             new Chart(document.getElementById('ageChart'), {
                 type: 'bar',
                 data: {
@@ -235,7 +287,7 @@
                         backgroundColor: '#476eae'
                     }]
                 },
-                options: { maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                options: { maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
             });
         });
 
@@ -248,33 +300,35 @@
             fetch(`/admin/${nik}`)
                 .then(res => res.json())
                 .then(data => {
+                    const foto = data.foto ? `/storage/${data.foto}` : '/assets/img/default-user.png';
                     content.innerHTML = `
-                        <div class="table-responsive">
-                            <table class="table table-sm table-borderless small">
-                                <tr><th width="35%" class="text-muted text-uppercase">NIK</th><td>: ${data.nik}</td></tr>
-                                <tr><th class="text-muted text-uppercase">No. KK</th><td>: ${data.no_kk || '-'}</td></tr>
-                                <tr><th class="text-muted text-uppercase">Nama</th><td>: <strong>${data.nama_lengkap}</strong></td></tr>
-                                <tr><th class="text-muted text-uppercase">TTL</th><td>: ${data.tempat_lahir}, ${data.tanggal_lahir}</td></tr>
-                                <tr><th class="text-muted text-uppercase">Gender</th><td>: ${data.jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan'}</td></tr>
-                                <tr><th class="text-muted text-uppercase">Alamat</th><td>: ${data.alamat_jalan || '-'}</td></tr>
-                                <tr><th class="text-muted text-uppercase">Pekerjaan</th><td>: ${data.pekerjaan || '-'}</td></tr>
-                                <tr><th class="text-muted text-uppercase">WhatsApp</th><td>: ${data.no_hp || '-'}</td></tr>
+                    <div class="row">
+                        <div class="col-md-4 text-center mb-3">
+                            <img src="${foto}" class="img-detail" alt="Foto">
+                            <div class="mt-3">
+                                <span class="badge bg-primary px-3">${data.nik}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <table class="table table-sm table-detail">
+                                <tr><th>No. KK</th><td>${data.no_kk || '-'}</td></tr>
+                                <tr><th>Nama Lengkap</th><td class="fw-bold">${data.nama_lengkap}</td></tr>
+                                <tr><th>TTL</th><td>${data.tempat_lahir}, ${data.tanggal_lahir}</td></tr>
+                                <tr><th>Jenis Kelamin</th><td>${data.jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan'}</td></tr>
+                                <tr><th>Alamat</th><td>${data.alamat_jalan || '-'}</td></tr>
+                                <tr><th>Agama</th><td>${data.agama}</td></tr>
+                                <tr><th>Status</th><td>${data.status_perkawinan}</td></tr>
+                                <tr><th>Pekerjaan</th><td>${data.pekerjaan}</td></tr>
+                                <tr><th>WhatsApp</th><td>${data.no_hp || '-'}</td></tr>
+                                <tr><th>Email</th><td>${data.email || '-'}</td></tr>
                             </table>
-                        </div>`;
-                }).catch(() => {
-                    content.innerHTML = '<p class="text-center text-danger">Gagal memuat data.</p>';
+                        </div>
+                    </div>`;
                 });
         }
 
+        function closeWargaModal() { document.getElementById('wargaModal').style.display = 'none'; }
         function openDownloadModal() { document.getElementById('downloadModal').style.display = 'block'; }
         function closeDownloadModal() { document.getElementById('downloadModal').style.display = 'none'; }
-        function closeWargaModal() { document.getElementById('wargaModal').style.display = 'none'; }
-
-        window.onclick = function(e) {
-            if(e.target.className === 'custom-modal') {
-                closeWargaModal();
-                closeDownloadModal();
-            }
-        }
     </script>
 @endsection

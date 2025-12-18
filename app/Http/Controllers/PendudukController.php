@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Warga; // Pastikan nama Model Anda sesuai (Warga atau Penduduk)
+use App\Models\Warga;
 use App\Exports\PendudukExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
@@ -12,31 +12,24 @@ class PendudukController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = $request->input('per_page', 10);
-        $search = $request->input('search');
-
         $query = Warga::query();
 
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('nama_lengkap', 'like', "%$search%")
-                    ->orWhere('nik', 'like', "%$search%")
-                    ->orWhere('no_kk', 'like', "%$search%");
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('nama_lengkap', 'like', "%{$request->search}%")
+                    ->orWhere('nik', 'like', "%{$request->search}%")
+                    ->orWhere('no_kk', 'like', "%{$request->search}%");
             });
         }
+        if ($request->filled('agama'))
+            $query->where('agama', $request->agama);
+        if ($request->filled('status_perkawinan'))
+            $query->where('status_perkawinan', $request->status_perkawinan);
+        if ($request->filled('jenis_kelamin'))
+            $query->where('jenis_kelamin', $request->jenis_kelamin);
 
-        // Logic Sortir
-        if ($request->sort == 'nama') {
-            $query->orderBy('nama_lengkap', 'asc');
-        } elseif ($request->sort == 'nik') {
-            $query->orderBy('nik', 'asc');
-        } else {
-            $query->latest();
-        }
+        $warga = $query->latest()->paginate($request->input('per_page', 10));
 
-        $warga = $query->paginate($perPage);
-
-        // Data untuk Chart & Statistik
         $totalWarga = Warga::count();
         $totalKeluarga = Warga::distinct('no_kk')->count();
 
@@ -46,14 +39,14 @@ class PendudukController extends Controller
         $statusNikahStats = Warga::select('status_perkawinan', DB::raw('count(*) as total'))
             ->groupBy('status_perkawinan')->get();
 
-        $ageStats = Warga::select(DB::raw("
-            CASE 
+        $ageStats = Warga::select(DB::raw("CASE 
                 WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) < 18 THEN 'Anak-anak'
                 WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 18 AND 60 THEN 'Produktif'
-                ELSE 'Lansia'
-            END as kelompok_usia
-        "), DB::raw('count(*) as total'))
-            ->groupBy('kelompok_usia')->get();
+                ELSE 'Lansia' 
+            END as kelompok_usia"), DB::raw('count(*) as total'))
+            ->groupBy('kelompok_usia')
+            ->orderByRaw("FIELD(kelompok_usia, 'Anak-anak', 'Produktif', 'Lansia')")
+            ->get();
 
         return view('admin.penduduk', compact(
             'warga',
@@ -65,37 +58,19 @@ class PendudukController extends Controller
         ));
     }
 
-    // FUNGSI INI YANG TADI HILANG/ERROR
     public function exportData(Request $request)
     {
-        $columns = $request->input('columns');
+        $columns = $request->input('columns', ['nik', 'nama_lengkap']);
+        $filters = $request->only(['search', 'agama', 'status_perkawinan', 'jenis_kelamin']);
 
-        // Cek jika user belum memilih kolom
-        if (!$columns || !is_array($columns)) {
-            return back()->with('error', 'Silakan pilih minimal satu kolom untuk didownload.');
-        }
-
-        $search = $request->input('search');
-        $format = $request->input('format', 'xlsx');
-        $fileName = 'data_penduduk_' . date('Ymd_His') . '.' . $format;
-
-        // Memanggil class Export
-        $export = new PendudukExport($columns, $search);
-
-        if ($format === 'csv') {
-            return Excel::download($export, $fileName, \Maatwebsite\Excel\Excel::CSV);
-        }
-
-        return Excel::download($export, $fileName);
+        $fileName = 'Data_Penduduk_' . date('YmdHis') . '.xlsx';
+        return Excel::download(new PendudukExport($columns, $filters), $fileName);
     }
 
     public function show($nik)
     {
-        $data = Warga::where('nik', $nik)->first();
-        if (!$data) {
-            return response()->json(['message' => 'Data tidak ditemukan'], 404);
-        }
-        return response()->json($data);
+        $warga = Warga::where('nik', $nik)->first();
+        return $warga ? response()->json($warga) : response()->json(['message' => 'Not Found'], 404);
     }
 
     public function destroy($nik)
