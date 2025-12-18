@@ -25,4 +25,9 @@ class PengajuanSurat extends Model
     {
         return $this->belongsTo(Warga::class, 'warga_nik', 'nik');
     }
+
+    public function jenisSurat()
+    {
+        return $this->belongsTo(JenisSurat::class, 'jenis_surat_id', 'id');
+    }
 }
