@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Warga; // Pastikan model di-import
+use App\Models\Warga;
 use Illuminate\Support\Facades\Hash;
 
 class LoginWargaController extends Controller
