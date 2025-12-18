@@ -90,8 +90,8 @@ $tahun = date('Y');
 
         <small class="menu-label"
             style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Kependudukan</small>
-        <a href="{{ route('admin.warga.index') }}"
-            class="menu-item {{ request()->routeIs('admin.warga.*') ? 'active' : '' }}">
+        <a href="{{ route('admin.penduduk') }}"
+            class="menu-item {{ request()->routeIs('admin.penduduk') ? 'active' : '' }}">
             <i class="fas fa-users"></i> Data Penduduk
         </a>
         <a href="{{ route('admin.keluarga.index') }}" class="menu-item">

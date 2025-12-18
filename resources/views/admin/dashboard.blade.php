@@ -1,6 +1,6 @@
-@extends('layouts.app-admin') {{-- Sesuaikan dengan layout admin Anda --}}
+@extends('layouts.app-admin')
 
-@section('title', 'Dashboard Admin')
+@section('title', 'Dashboard')
 
 @section('extra-style')
     <style>
