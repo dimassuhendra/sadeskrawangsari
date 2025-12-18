@@ -22,7 +22,7 @@ Route::get('/', [LandingPageController::class, 'index'])->name('landingpage');
 Route::middleware(['guest'])->group(function () {
     Route::get('/login-warga', [LoginWargaController::class, 'showLoginForm'])->name('login.warga');
     Route::post('/login-warga', [LoginWargaController::class, 'login']);
-    
+
     Route::get('/login-admin', [LoginAdminController::class, 'showLoginForm'])->name('login.admin');
     Route::post('/login-admin', [LoginAdminController::class, 'login']);
 
@@ -33,19 +33,19 @@ Route::middleware(['guest'])->group(function () {
 // Route Warga
 Route::middleware(['auth:warga'])->group(function () {
     Route::get('/dashboard-warga', [DashboardWargaController::class, 'index'])->name('dashboard.warga');
-    
+
     Route::post('/logout-warga', [LoginWargaController::class, 'logout'])->name('logout.warga');
-    
+
     Route::get('/buat-pengajuan', [PengajuanSuratController::class, 'index'])->name('pengajuan.katalog');
     Route::get('/buat-pengajuan/{jenis}', [PengajuanSuratController::class, 'create'])->name('pengajuan.create');
     Route::post('/buat-pengajuan/store', [PengajuanSuratController::class, 'store'])->name('pengajuan.store');
-    
+
     Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan');
     Route::post('/pengaduan/kirim', [PengaduanController::class, 'store'])->name('pengaduan.store');
-    
+
     Route::get('/profil-saya', [ProfileWargaController::class, 'index'])->name('profile.warga');
     Route::post('/profil-saya/update', [ProfileWargaController::class, 'update'])->name('profile.update');
-    
+
     Route::get('/data-keluarga', [KeluargaController::class, 'index'])->name('keluarga.warga');
     Route::post('/data-keluarga/store', [KeluargaController::class, 'storeKeluarga'])->name('keluarga.store');
     Route::post('/data-keluarga/add-anggota', [KeluargaController::class, 'addAnggota'])->name('keluarga.addAnggota');
@@ -68,8 +68,9 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/pengaturan', [DashboardAdminController::class, 'pengaturan'])->name('admin.pengaturan');
 
     Route::get('/admin/penduduk', [PendudukController::class, 'index'])->name('admin.penduduk');
-    Route::get('/admin/{nik}', [PendudukController::class, 'show'])->name('penduduk.show');
-    Route::delete('/admin/{nik}', [PendudukController::class, 'destroy'])->name('penduduk.destroy');
+    Route::get('/admin/penduduk/export-proses', [PendudukController::class, 'exportData'])->name('admin.penduduk.export');
+    Route::get('/admin/{nik}', [PendudukController::class, 'show'])->name('admin.penduduk.show');
+    Route::delete('/admin/penduduk/{nik}', [PendudukController::class, 'destroy'])->name('penduduk.destroy');
 
     Route::post('/logout-admin', [LoginAdminController::class, 'logout'])->name('admin.logout');
 });
