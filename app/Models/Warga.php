@@ -35,6 +35,11 @@ class Warga extends Authenticatable
     ];
     protected $hidden = ['password', 'remember_token'];
 
+    public function keluarga()
+    {
+        return $this->belongsTo(Keluarga::class, 'id_keluarga', 'id');
+    }
+    
     public function getAuthIdentifierName()
     {
         return 'nik';

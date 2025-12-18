@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') - Portal Admin</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Domine:wght@700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style-warga.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
     <style>
         :root {
@@ -34,7 +36,6 @@
             margin-bottom: 30px;
         }
 
-        /* --- SIDEBAR CUSTOMIZATION --- */
         .sidebar {
             width: var(--sidebar-width);
             background-color: var(--color-2);
@@ -49,9 +50,7 @@
 
         .sidebar a {
             text-decoration: none !important;
-            /* Hilangkan garis bawah */
             color: rgba(255, 255, 255, 0.8) !important;
-            /* Warna teks putih agak transparan */
             display: flex;
             align-items: center;
             gap: 12px;
@@ -92,14 +91,11 @@
             transform: translateX(-100%);
         }
 
-        /* --- MAIN CONTENT (ANTI-TINDIH) --- */
         .main-content {
             flex: 1;
-            /* Inilah yang mencegah konten tertutup sidebar */
             margin-left: var(--sidebar-width);
             padding: 30px;
             padding-top: 20px;
-            /* Ruang untuk tombol toggle */
             transition: margin-left var(--transition-speed) ease;
             min-height: 100vh;
             width: 100%;
@@ -109,30 +105,16 @@
     </style>
 </head>
 
-<body class="">
+<body>
     @include('layouts.sidebar-admin')
 
     <div class="main-content">
         @yield('content')
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const btn = document.getElementById('sidebarToggle');
-            const body = document.body;
+    {{-- INI SATU-SATUNYA TAMBAHAN --}}
+    @yield('extra-script')
 
-            btn.addEventListener('click', function () {
-                body.classList.toggle('sidebar-closed');
-
-                const icon = btn.querySelector('i');
-                if (body.classList.contains('sidebar-closed')) {
-                    icon.classList.replace('fa-bars', 'fa-chevron-right');
-                } else {
-                    icon.classList.replace('fa-chevron-right', 'fa-bars');
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>
