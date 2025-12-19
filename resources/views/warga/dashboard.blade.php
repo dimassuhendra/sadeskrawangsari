@@ -92,7 +92,7 @@
     </div>
 
     <div class="content-section">
-        <a href="#" class="btn-request">+ Ajukan Surat Baru</a>
+        <a href="{{ route('pengajuan.katalog') }}" class="btn-request">+ Ajukan Surat Baru</a>
         <h2 style="font-family: 'Domine'; color: var(--color-1);">Pengumuman Desa</h2>
         <hr style="margin: 15px 0; border: 0.5px solid #eee;">
 

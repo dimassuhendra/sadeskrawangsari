@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="welcome-card-2">
-        <h1>Profil Warga Digital</h1>
+        <h1>Profil Penduduk Digital</h1>
         <p>Selamat datang di ruang data pribadi Anda. Pastikan informasi Anda tetap akurat untuk pelayanan desa yang lebih
             cepat.</p>
     </div>
@@ -328,7 +328,7 @@
 
         .form-title {
             font-family: 'Domine';
-            color: var(--color-1);
+            color: var(--color-2);
             margin: 0 0 30px 0;
             display: flex;
             align-items: center;
