@@ -112,9 +112,9 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Warga</th>
+                                <th>Nama Pemohon</th>
                                 <th>Jenis Surat</th>
-                                <th>Tanggal</th>
+                                <th>Tanggal Pengajuan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -122,18 +122,23 @@
                             @forelse($permohonan_terbaru as $p)
                                 <tr>
                                     <td>
-                                        <strong>{{ $p->user->nama_lengkap }}</strong><br>
-                                        <small class="text-muted">{{ $p->user->nik }}</small>
+                                        <strong>{{ $p->warga->nama_lengkap ?? 'Warga Tidak Terdaftar' }}</strong><br>
+                                        <small class="text-muted">{{ $p->warga_nik }}</small>
                                     </td>
-                                    <td>{{ $p->jenis_surat }}</td>
+                                    <td>
+                                        {{ $p->jenisSurat->nama_surat ?? 'Jenis Surat Tidak Diketahui' }}
+                                    </td>
                                     <td>{{ $p->created_at->format('d/m/Y') }}</td>
+                                    <td>
+                                        <span class="badge bg-info">{{ $p->status }}</span>
+                                    </td>
                                     <td>
                                         <a href="#" class="btn btn-sm btn-primary">Proses</a>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center py-4 text-muted">Tidak ada permohonan baru.</td>
+                                    <td colspan="5" class="text-center py-4 text-muted">Tidak ada permohonan baru.</td>
                                 </tr>
                             @endforelse
                         </tbody>
