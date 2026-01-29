@@ -80,11 +80,11 @@ $tahun = date('Y');
         <small class="menu-label"
             style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Manajemen
             Surat</small>
-        <a href="{{ route('admin.surat.masuk') }}"
-            class="menu-item {{ request()->routeIs('admin.surat.masuk') ? 'active' : '' }}">
+        <a href="{{ route('admin.surat-masuk') }}"
+            class="menu-item {{ request()->routeIs('admin.surat-masuk') ? 'active' : '' }}">
             <i class="fas fa-envelope-open-text"></i> Permohonan Baru
             <span class="badge-count">5</span> </a>
-        <a href="{{ route('admin.surat.arsip') }}" class="menu-item">
+        <a href="{{ route('admin.surat-arsip') }}" class="menu-item">
             <i class="fas fa-archive"></i> Arsip Surat Selesai
         </a>
 
