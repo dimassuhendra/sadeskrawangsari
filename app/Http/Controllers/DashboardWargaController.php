@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\PengajuanSurat;
 use App\Models\Berita;
+use App\Models\Warga;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardWargaController extends Controller

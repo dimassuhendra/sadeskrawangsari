@@ -22,7 +22,6 @@ class PengajuanSuratController extends Controller
         // Ambil data jenis surat dari DB berdasarkan kode/nama untuk mendapatkan ID-nya
         $surat_info = DB::table('jenis_surat')->where('nama_surat', 'like', '%' . $jenis_surat_nama . '%')->first();
 
-        // Jika tidak ketemu di DB, kita buat manual mapping sederhananya untuk keamanan
         $jenis_id_map = [
             'sktm' => 1,
             'beasiswa' => 2,
@@ -109,5 +108,28 @@ class PengajuanSuratController extends Controller
             Log::error("Gagal simpan: " . $e->getMessage());
             return back()->with('error', 'Gagal: ' . $e->getMessage())->withInput();
         }
+    }
+    public function updateStatus($id, $status)
+    {
+        $pengajuan = PengajuanSurat::findOrFail($id);
+        $pengajuan->update(['status' => $status]);
+
+        // Jika disetujui, Anda bisa menambahkan logika notifikasi di sini
+        return back()->with('success', "Status berhasil diperbarui menjadi $status.");
+    }
+
+    // Fungsi Cetak PDF (Bisa diakses Admin & Warga)
+    public function cetakSurat($id)
+    {
+        $surat = PengajuanSurat::with(['warga', 'jenisSurat'])->findOrFail($id);
+
+        if ($surat->status !== 'Disetujui') {
+            return back()->with('error', 'Surat belum disetujui untuk dicetak.');
+        }
+
+        // Gunakan library DomPDF (pastikan sudah install: composer require barryvdh/laravel-dompdf)
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.surat.pdf-template', compact('surat'));
+
+        return $pdf->stream('Surat_' . $surat->warga_nik . '.pdf');
     }
 }
