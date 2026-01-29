@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\Auth\LoginWargaController;
 use App\Http\Controllers\Auth\RegisterWargaController;
 use App\Http\Controllers\Auth\LoginAdminController;
@@ -52,7 +53,7 @@ Route::middleware(['auth:warga'])->group(function () {
 });
 
 // Route Admin
-Route::middleware(['auth:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin,kades'])->group(function () {
     Route::get('/dashboard-admin', [DashboardAdminController::class, 'index'])->name('admin.dashboard');
 
     Route::get('/admin/surat-masuk', [DashboardAdminController::class, 'suratMasuk'])->name('admin.surat.masuk');

@@ -11,12 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Tambahkan ini untuk mengarahkan user yang belum login
-        $middleware->redirectGuestsTo(fn() => route('login.warga'));
-
         $middleware->alias([
-            'isWarga' => \App\Http\Middleware\CekWarga::class,
-            'isAdmin' => \App\Http\Middleware\AdminMiddleware::class,
+            'role' => \App\Http\Middleware\CheckRole::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

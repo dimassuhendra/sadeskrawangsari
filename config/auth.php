@@ -39,16 +39,6 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ],
-
-        'warga' => [
-            'driver' => 'session',
-            'provider' => 'wargas',
-        ],
-
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
         ]
     ],
 
@@ -73,16 +63,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
-        ],
-
-        'wargas' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Warga::class,
-        ],
-
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
         ]
     ],
 
