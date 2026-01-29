@@ -32,7 +32,7 @@ Route::middleware(['guest'])->group(function () {
 });
 
 // Route Warga
-Route::middleware(['auth:warga'])->group(function () {
+Route::middleware(['auth', 'role:warga'])->group(function () {
     Route::get('/dashboard-warga', [DashboardWargaController::class, 'index'])->name('dashboard.warga');
 
     Route::post('/logout-warga', [LoginWargaController::class, 'logout'])->name('logout.warga');
@@ -56,8 +56,10 @@ Route::middleware(['auth:warga'])->group(function () {
 Route::middleware(['auth', 'role:admin,kades'])->group(function () {
     Route::get('/dashboard-admin', [DashboardAdminController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/admin/surat-masuk', [DashboardAdminController::class, 'suratMasuk'])->name('admin.surat.masuk');
-    Route::get('/admin/surat-arsip', [DashboardAdminController::class, 'suratArsip'])->name('admin.surat.arsip');
+    Route::get('/admin/surat-masuk', [DashboardAdminController::class, 'suratMasuk'])->name('admin.surat-masuk');
+    Route::get('/admin/surat-arsip', [DashboardAdminController::class, 'suratArsip'])->name('admin.surat-arsip');
+    Route::get('/admin/surat-proses', [DashboardAdminController::class, 'suratProses'])->name('admin.surat-proses');
+
 
     Route::get('/admin/penduduk', [DashboardAdminController::class, 'wargaIndex'])->name('admin.warga.index');
     Route::get('/admin/keluarga', [DashboardAdminController::class, 'keluargaIndex'])->name('admin.keluarga.index');
