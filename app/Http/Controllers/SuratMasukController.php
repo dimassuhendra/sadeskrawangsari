@@ -50,26 +50,34 @@ class SuratMasukController extends Controller
 
     public function cetakSurat($id)
     {
-        $surat = PengajuanSurat::with(['warga', 'jenisSurat'])->findOrFail($id);
+        // Load pengajuan beserta warga, jenisSurat, dan semua kemungkinan detail
+        $surat = PengajuanSurat::with([
+            'warga',
+            'jenisSurat',
+            'penghasilanDetail', // Contoh relasi detail
+            'sktmDetail'
+        ])->findOrFail($id);
 
         if ($surat->status !== 'Disetujui') {
             return redirect()->back()->with('error', 'Surat belum disetujui.');
         }
 
-        // Ambil nama surat untuk pengecekan yang lebih akurat
         $namaSurat = $surat->jenisSurat->nama_surat;
 
-        // Gunakan stripos agar tidak sensitif terhadap huruf besar/kecil
+        // Mapping Template berdasarkan Nama atau ID
         if (stripos($namaSurat, 'Surat Rekomendasi Beasiswa') !== false) {
             $view = 'admin.surat.pdf-rekomendasi-beasiswa';
-        } elseif (stripos($namaSurat, 'Usaha') !== false) {
-            $view = 'admin.surat.pdf-keterangan-usaha';
+        } elseif (stripos($namaSurat, 'Surat Keterangan Penghasilan') !== false) {
+            $view = 'admin.surat.pdf-keterangan-penghasilan';
+        } elseif (stripos($namaSurat, 'Surat Keterangan Tidak Mampu') !== false || stripos($namaSurat, 'Tidak Mampu') !== false) {
+            $view = 'admin.surat.pdf-sktm';
         } else {
             $view = 'admin.surat.pdf-umum';
         }
 
         $pdf = Pdf::loadView($view, compact('surat'));
         $pdf->setPaper('letter', 'portrait');
+
         return $pdf->stream('Surat_' . $namaSurat . '_' . $surat->warga->nama_lengkap . '.pdf');
     }
 }
