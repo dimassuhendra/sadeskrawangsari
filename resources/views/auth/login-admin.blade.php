@@ -162,9 +162,45 @@
             text-decoration: none;
         }
 
+        /* Responsif untuk HP */
         @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                /* Mengubah posisi kiri-kanan menjadi atas-bawah */
+                width: 95%;
+                margin: 20px 0;
+            }
+
             .login-left {
-                display: none;
+                padding: 30px 20px;
+                min-height: 250px;
+                /* Memberi ruang agar gambar latar terlihat */
+                text-align: center;
+            }
+
+            .header-logo {
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+
+            .header-logo h2 {
+                font-size: 12px;
+                text-align: left;
+            }
+
+            .login-left h3 {
+                font-size: 24px !important;
+                /* Perkecil ukuran judul di HP */
+            }
+
+            .login-right {
+                padding: 30px 20px;
+            }
+
+            .login-left::after {
+                width: 60%;
+                height: 60%;
+                opacity: 0.6;
             }
         }
     </style>
@@ -191,14 +227,14 @@
             <p>Masukkan Email dan Password Anda untuk melanjutkan.</p>
 
             @if ($errors->any())
-                <div
-                    style="background: #fee2e2; border: 1px solid #ef4444; color: #b91c1c; padding: 10px; border-radius: 8px; margin-bottom: 20px; font-size: 14px;">
-                    <ul style="list-style: none; padding: 0;">
-                        @foreach ($errors->all() as $error)
-                            <li>⚠️ {{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div
+                style="background: #fee2e2; border: 1px solid #ef4444; color: #b91c1c; padding: 10px; border-radius: 8px; margin-bottom: 20px; font-size: 14px;">
+                <ul style="list-style: none; padding: 0;">
+                    @foreach ($errors->all() as $error)
+                    <li>⚠️ {{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
             <form action="{{ route('login.admin') }}" method="POST">
