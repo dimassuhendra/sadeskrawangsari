@@ -12,13 +12,14 @@ class PengajuanSurat extends Model
     protected $table = 'pengajuan_surat';
 
     protected $fillable = [
-        'no_surat',
+        'nomor_surat',
         'warga_nik',
         'jenis_surat_id',
-        'keperluan',
         'status',
+        'metode_ambil',
         'keterangan_admin',
-        'file_hasil'
+        'final_path_pdf',
+        'kode_verifikasi_qr'
     ];
 
     // --- Relasi Utama ---

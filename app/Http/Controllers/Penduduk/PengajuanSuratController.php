@@ -83,7 +83,7 @@ class PengajuanSuratController extends Controller
             // 3. Simpan ke Tabel Utama (pengajuan_surat)
             // Sesuai DB: id, warga_nik, jenis_surat_id, status, metode_ambil
             $pengajuanId = DB::table('pengajuan_surat')->insertGetId([
-                'warga_nik' => Auth::user()->nik,
+                'warga_nik' => Auth::guard('warga')->user()->nik,
                 'jenis_surat_id' => $request->jenis_surat_id,
                 'status' => 'Diajukan', // Sesuai Enum di DB
                 'metode_ambil' => $request->metode_ambil,

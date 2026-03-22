@@ -240,8 +240,8 @@
                                 <span class="badge" id="det-status">-</span>
                             </div>
 
-                            <div class="detail-label">Alasan / Keperluan</div>
-                            <div class="detail-value" id="det-keperluan">-</div>
+                            <div class="detail-label">Metode Pengambilan Surat</div>
+                            <div class="detail-value" id="det-metode">-</div>
                         </div>
                     </div>
                 </div>
@@ -275,7 +275,7 @@
                     $('#det-nik').text(data.nik);
                     $('#det-jenis').text(data.jenis);
                     $('#det-tgl').text(data.tanggal);
-                    $('#det-keperluan').text(data.keperluan);
+                    $('#det-metode').text(data.metode_ambil);
 
                     // Style status badge di modal
                     $('#det-status').text(data.status).removeAttr('class').addClass('badge status-badge');

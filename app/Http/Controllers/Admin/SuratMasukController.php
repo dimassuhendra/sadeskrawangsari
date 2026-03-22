@@ -45,9 +45,7 @@ class SuratMasukController extends Controller
             'jenis' => $surat->jenisSurat->nama_surat,
             'tanggal' => $surat->created_at->format('d F Y'),
             'status' => $surat->status,
-            'keperluan' => $surat->keperluan ?? 'Tidak disebutkan',
-            // Tambahkan field lain sesuai kebutuhan (misal: foto dokumen)
-        ]);
+            'metode_ambil' => $surat->metode_ambil === 'mandiri' ? 'Cetak Sendiri' : 'Ambil di Kantor',        ]);
     }
 
     public function cetakSurat($id)
