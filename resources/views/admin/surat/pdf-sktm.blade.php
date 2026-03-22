@@ -5,7 +5,7 @@
 @section('content')
     <div class="judul-surat">
         <h4 style="text-decoration: underline; margin-bottom: 5px;">SURAT KETERANGAN TIDAK MAMPU</h4>
-        <span>Nomor: 400 / {{ str_pad($surat->id, 3, '0', STR_PAD_LEFT) }} / DS-KS / {{ date('Y') }}</span>
+        <span>Nomor: {{ $surat->nomor_surat }}</span>
     </div>
 
     <div class="isi-surat">

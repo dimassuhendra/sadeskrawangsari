@@ -59,6 +59,8 @@ Route::middleware(['auth', 'role:admin,kades'])->group(function () {
 
     Route::get('/admin/surat-masuk', [SuratMasukController::class, 'index'])->name('admin.surat-masuk');
     Route::get('/admin/surat-proses/{id}/{status}', [SuratMasukController::class, 'updateStatus'])->name('admin.surat-proses');
+    Route::post('/admin/surat-setujui/{id}', [SuratMasukController::class, 'setujuiSurat'])->name('admin.surat-setujui');
+    Route::post('/admin/surat-tolak/{id}', [SuratMasukController::class, 'tolakSurat'])->name('admin.surat-tolak');
     Route::get('/admin/surat-detail/{id}', [SuratMasukController::class, 'show'])->name('admin.surat-detail');
     Route::get('/admin/surat-cetak/{id}', [SuratMasukController::class, 'cetakSurat'])->name('admin.surat-cetak');
 

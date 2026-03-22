@@ -32,6 +32,89 @@ class SuratMasukController extends Controller
 
         return back()->with('success', "Status permohonan berhasil diubah menjadi $status.");
     }
+    
+    public function setujuiSurat(Request $request, $id)
+    {
+        // 1. Validasi: Admin HANYA menginput nomor urut bagian depannya saja (XXX)
+        $request->validate([
+            'no_urut' => 'required|string|max:50',
+        ]);
+
+        $pengajuan = PengajuanSurat::with('jenisSurat')->findOrFail($id);
+
+        // 2. Buat Mapping Singkatan Surat berdasarkan ID Jenis Surat
+        // $kode_surat_map = [
+        //     1 => 'SKTM',
+        //     2 => 'BEASISWA',
+        //     3 => 'IUMK',
+        //     4 => 'DOMISILI',
+        //     5 => 'PENGHASILAN',
+        //     6 => 'KEHILANGAN',
+        //     7 => 'KEMATIAN',
+        //     8 => 'PENGANTAR-KTP',
+        //     9 => 'JAMKES',
+        //     10 => 'IZIN-RAMAI',
+        //     11 => 'PINDAH',
+        //     12 => 'UBAH-DATA',
+        //     13 => 'BLM-MENIKAH'
+        // ];
+
+        $kode_surat_map = [
+            1  => 'SKTM',
+            2  => 'BEAS',
+            3  => 'IUMK',
+            4  => 'DOMI',
+            5  => 'PHSL', // Penghasilan
+            6  => 'HILG', // Kehilangan
+            7  => 'KMAT', // Kematian
+            8  => 'KTPP', // Pengantar KTP
+            9  => 'JAMK',
+            10 => 'IZRM', // Izin Ramai
+            11 => 'PNDH', // Pindah
+            12 => 'UBDT', // Ubah Data
+            13 => 'BLMK'  // Belum Menikah
+        ];
+
+        // Ambil kode berdasarkan ID, jika tidak ada fallback ke 'SURAT'
+        $kode_surat = $kode_surat_map[$pengajuan->jenis_surat_id] ?? 'SURAT';
+
+        // 3. Generate Bulan Romawi Saat Ini
+        $romawi = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+        $bulanSekarang = date('n'); // Menghasilkan angka 1-12
+        $bulanRomawi = $romawi[$bulanSekarang];
+
+        // 4. Generate Tahun Saat Ini
+        $tahunSekarang = date('Y');
+
+        // 5. Rangkai Format Final (Contoh: 145/SKTM/III/2026)
+        $nomorSuratLengkap = $request->no_urut . '/' . $kode_surat . '/' . $bulanRomawi . '/' . $tahunSekarang;
+
+        // 6. Simpan ke database
+        $pengajuan->update([
+            'status' => 'Disetujui',
+            'nomor_surat' => $nomorSuratLengkap
+        ]);
+
+        return back()->with('success', "Surat disetujui dengan Nomor Registrasi: $nomorSuratLengkap");
+    }
+
+    // Fungsi khusus untuk menolak dan menyimpan Alasan (Keterangan Admin)
+    public function tolakSurat(Request $request, $id)
+    {
+        $request->validate([
+            'keterangan_admin' => 'required|string',
+        ]);
+
+        $pengajuan = PengajuanSurat::findOrFail($id);
+
+        // Simpan status dan alasan penolakan
+        $pengajuan->update([
+            'status' => 'Ditolak',
+            'keterangan_admin' => $request->keterangan_admin
+        ]);
+
+        return back()->with('success', 'Permohonan surat berhasil ditolak beserta alasannya.');
+    }
 
     // Fungsi untuk mengambil data detail via AJAX
     public function show($id)
@@ -44,8 +127,11 @@ class SuratMasukController extends Controller
             'nik' => $surat->warga_nik,
             'jenis' => $surat->jenisSurat->nama_surat,
             'tanggal' => $surat->created_at->format('d F Y'),
+            'updated' => $surat->updated_at->format('d F Y'),
             'status' => $surat->status,
-            'metode_ambil' => $surat->metode_ambil === 'mandiri' ? 'Cetak Sendiri' : 'Ambil di Kantor',        ]);
+            'metode_ambil' => $surat->metode_ambil === 'mandiri' ? 'Cetak Sendiri' : 'Ambil di Kantor',
+            'nomor_surat' => $surat->nomor_surat ? $surat->nomor_surat : 'Belum ada nomor surat',
+        ]);
     }
 
     public function cetakSurat($id)
