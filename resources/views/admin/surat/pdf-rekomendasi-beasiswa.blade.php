@@ -1,4 +1,4 @@
-@extends('layouts.pdf-layout')
+@extends('admin.surat.pdf-layout')
 
 @section('title', 'Surat Rekomendasi Beasiswa')
 
@@ -27,7 +27,7 @@
         {{-- Tambahkan data lain sesuai kebutuhan --}}
     </table>
 
-    <p>Nama tersebut di atas adalah benar warga Desa Krawang Sari yang memiliki berkelakuan baik dan bermaksud mengajukan <strong>{{ $surat->keperluan }}</strong>.</p>
+    <p>Nama tersebut di atas adalah benar warga Desa Krawang Sari yang memiliki berkelakuan baik yang bermaksud mengajukan beasiswa kepada <strong>{{ $surat->beasiswaDetail->nama_institusi ?? 'Institusi Beasiswa' }}</strong>.</p>
 
     <p>Demikian surat rekomendasi ini dibuat untuk dapat dipergunakan sebagaimana mestinya.</p>
 </div>

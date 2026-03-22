@@ -54,8 +54,9 @@ class SuratMasukController extends Controller
         $surat = PengajuanSurat::with([
             'warga',
             'jenisSurat',
-            'penghasilanDetail', // Contoh relasi detail
-            'sktmDetail'
+            'penghasilanDetail',
+            'sktmDetail',
+            'beasiswaDetail',
         ])->findOrFail($id);
 
         if ($surat->status !== 'Disetujui') {
