@@ -8,6 +8,22 @@
         <p>Pastikan data yang Anda masukkan sesuai dengan dokumen asli Anda untuk mempercepat proses verifikasi.</p>
     </div>
 
+    @if (session('error'))
+        <div style="background: red; color: white; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div style="background: red; color: white; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="profile-layout-wrapper">
         <form action="{{ route('pengajuan.store') }}" method="POST">
             @csrf
@@ -86,10 +102,11 @@
                                     {{ $jenis_surat_nama }}</label>
                             </div>
 
-                            @if($slug == 'sktm')
+                            @if ($slug == 'sktm')
                                 <div class="form-group full-width">
                                     <label>Tujuan SKTM</label>
-                                    <input type="text" name="tujuan_sktm" placeholder="Contoh: Pendaftaran Sekolah" required>
+                                    <input type="text" name="tujuan_sktm" placeholder="Contoh: Pendaftaran Sekolah"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label>Jumlah Tanggungan</label>
@@ -101,10 +118,8 @@
                                 </div>
                                 <div class="form-group full-width">
                                     <label>Keterangan Aset</label>
-                                    <textarea name="keterangan_aset" class="custom-textarea"
-                                        placeholder="Sebutkan aset (Rumah/Kendaraan/dll)"></textarea>
+                                    <textarea name="keterangan_aset" class="custom-textarea" placeholder="Sebutkan aset (Rumah/Kendaraan/dll)"></textarea>
                                 </div>
-
                             @elseif($slug == 'beasiswa')
                                 <div class="form-group full-width">
                                     <label>Nama Institusi Pendidikan</label>
@@ -123,7 +138,6 @@
                                     <label>Nama Penerima Beasiswa</label>
                                     <input type="text" name="nama_penerima_beasiswa" required>
                                 </div>
-
                             @elseif($slug == 'penghasilan')
                                 <div class="form-group">
                                     <label>Pekerjaan Sebenarnya</label>
@@ -137,7 +151,6 @@
                                     <label>Tujuan Surat</label>
                                     <input type="text" name="tujuan_surat" required>
                                 </div>
-
                             @elseif($slug == 'pindah-domisili')
                                 <div class="form-group full-width">
                                     <label>Alamat Tujuan Lengkap</label>
@@ -158,12 +171,11 @@
                             @endif
                         </div>
 
-                        <div class="form-actions" style="display: flex; gap: 15px;">
+                        <div class="form-actions">
                             <button type="submit" class="btn-update">
                                 <i class="fas fa-paper-plane"></i> Kirim Pengajuan
                             </button>
-                            <a href="{{ route('pengajuan.katalog') }}" class="btn-update"
-                                style="background: #6c757d; text-align: center; text-decoration: none;">
+                            <a href="{{ route('pengajuan.katalog') }}" class="btn-update btn-cancel">
                                 Batal
                             </a>
                         </div>
@@ -175,7 +187,6 @@
 @endsection
 
 @section('extra-style')
-    {{-- Kita gunakan style yang sama persis dengan halaman profil --}}
     <style>
         .profile-layout-wrapper {
             padding-bottom: 20px;
@@ -211,15 +222,6 @@
         .user-avatar-section {
             text-align: center;
             margin-bottom: 30px;
-        }
-
-        .avatar {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            border: 5px solid rgba(255, 255, 255, 0.2);
-            background: white;
-            object-fit: cover;
         }
 
         .profile-user-name {
@@ -304,8 +306,15 @@
             box-shadow: 0 0 0 4px rgba(72, 179, 175, 0.1);
         }
 
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
         .btn-update {
-            width: 100%;
+            flex: 1;
+            /* Agar tombol membagi ruang rata */
             padding: 16px;
             background: #3a918e;
             color: white;
@@ -313,20 +322,71 @@
             border-radius: 15px;
             font-weight: 600;
             font-size: 16px;
-            margin-top: 30px;
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0 8px 15px rgba(58, 145, 142, 0.2);
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            /* Penting untuk tag <a> */
+            box-sizing: border-box;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            box-shadow: 0 8px 15px rgba(108, 117, 125, 0.2);
         }
 
         .btn-update:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(58, 145, 142, 0.3);
+            color: white;
         }
 
+        .btn-cancel:hover {
+            box-shadow: 0 10px 20px rgba(108, 117, 125, 0.3);
+        }
+
+        /* === PERUBAHAN CSS RESPONSIVE (MOBILE) === */
         @media (max-width: 992px) {
             .profile-container {
                 flex-direction: column;
+                /* Ubah layout jadi kolom (atas-bawah) */
+            }
+
+            .profile-info-side,
+            .profile-form-side {
+                min-width: 100%;
+                /* Hapus batas min-width agar pas di layar HP */
+                flex: none;
+                /* Reset flex */
+            }
+
+            .info-card,
+            .form-card {
+                padding: 25px 20px;
+                /* Kurangi padding dalam card agar konten lebih lega */
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                /* Form menjadi 1 kolom saja */
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+                /* Karena sudah 1 kolom, reset full-width */
+            }
+
+            .form-actions {
+                flex-direction: column;
+                /* Tombol Kirim dan Batal bertumpuk */
+                gap: 10px;
+            }
+
+            .welcome-card-2 h1 {
+                font-size: 24px;
+                /* Kecilkan sedikit font judul di mobile */
             }
         }
     </style>
