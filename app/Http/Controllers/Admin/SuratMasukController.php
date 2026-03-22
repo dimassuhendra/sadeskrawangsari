@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\PengajuanSurat;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Models\Surat;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+use App\Models\PengajuanSurat;
+use App\Models\Surat;
 
 class SuratMasukController extends Controller
 {

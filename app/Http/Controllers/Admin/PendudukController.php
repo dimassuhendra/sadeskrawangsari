@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Warga;
+use Illuminate\Support\Facades\DB;
 use App\Exports\PendudukExport;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\DB;
+
+use App\Models\Warga;
 
 class PendudukController extends Controller
 {

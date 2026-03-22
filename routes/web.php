@@ -3,17 +3,17 @@
 use App\Http\Controllers\Auth\LoginWargaController;
 use App\Http\Controllers\Auth\RegisterWargaController;
 use App\Http\Controllers\Auth\LoginAdminController;
-
 use App\Http\Controllers\LandingPageController;
-use App\Http\Controllers\DashboardWargaController;
-use App\Http\Controllers\PengajuanSuratController;
-use App\Http\Controllers\PengaduanController;
-use App\Http\Controllers\ProfileWargaController;
-use App\Http\Controllers\KeluargaController;
 
-use App\Http\Controllers\DashboardAdminController;
-use App\Http\Controllers\SuratMasukController;
-use App\Http\Controllers\PendudukController;
+use App\Http\Controllers\Penduduk\DashboardWargaController;
+use App\Http\Controllers\Penduduk\PengajuanSuratController;
+use App\Http\Controllers\Penduduk\PengaduanController;
+use App\Http\Controllers\Penduduk\ProfileWargaController;
+use App\Http\Controllers\Penduduk\KeluargaController;
+
+use App\Http\Controllers\Admin\DashboardAdminController;
+use App\Http\Controllers\Admin\SuratMasukController;
+use App\Http\Controllers\Admin\PendudukController;
 
 use Illuminate\Support\Facades\Route;
 

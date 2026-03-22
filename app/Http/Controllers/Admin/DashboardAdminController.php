@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use App\Models\Warga;
 use App\Models\PengajuanSurat;
 use App\Models\Berita;
@@ -35,7 +36,7 @@ class DashboardAdminController extends Controller
         // 4. Log Aktivitas (Sistem proteksi jika model belum dibuat)
         $logs = collect([]);
         if (class_exists('App\Models\AktivitasLog')) {
-            $logs = \App\Models\AktivitasLog::latest()->take(5)->get();
+            $logs = AktivitasLog::latest()->take(5)->get();
         }
 
         return view('admin.dashboard', compact('user', 'stats', 'permohonan_terbaru', 'logs'));

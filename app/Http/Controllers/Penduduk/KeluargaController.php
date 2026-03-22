@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Penduduk;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Keluarga;
 use App\Models\Warga;
