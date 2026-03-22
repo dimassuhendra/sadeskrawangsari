@@ -10,7 +10,8 @@
         * {
             margin: 0;
             padding: 0;
-            box-box-sizing: border-box;
+            box-sizing: border-box;
+            /* Diperbaiki dari box-box-sizing */
             font-family: 'Fredoka', sans-serif;
         }
 
@@ -21,12 +22,15 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            padding: 20px;
+            /* Tambahan padding untuk mobile agar tidak terlalu rapat dengan tepi layar */
         }
 
         .login-container {
             display: flex;
             width: 900px;
-            max-width: 95%;
+            max-width: 100%;
+            /* Diubah dari 95% agar lebih fluid */
             background: #fff;
             border-radius: 15px;
             overflow: hidden;
@@ -55,7 +59,7 @@
             transform: translate(-50%, -50%);
             width: 80%;
             height: 80%;
-            background-image: url('{{ asset("img/login-icon.png") }}');
+            background-image: url('{{ asset('img/login-icon.png') }}');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
@@ -160,11 +164,69 @@
         .footer-links a {
             color: #48B3AF;
             text-decoration: none;
+            margin-top: 10px;
+            /* Jarak agar tidak terlalu padat */
         }
 
+        /* === PERUBAHAN CSS RESPONSIVE === */
         @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+            }
+
             .login-left {
-                display: none;
+                padding: 30px 20px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .header-logo {
+                justify-content: center;
+                order: 1;
+            }
+
+            .login-left::after {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                height: 200px;
+                z-index: 1;
+                order: 2;
+            }
+
+            .login-left>div:last-child {
+                order: 3;
+            }
+
+            .header-logo h2 {
+                text-align: left;
+            }
+
+            .login-left h3 {
+                font-size: 24px !important;
+                /* Memperkecil judul sedikit di mobile */
+            }
+
+            .login-right {
+                padding: 30px 20px;
+                /* Mengurangi padding kanan agar muat di layar sempit */
+            }
+
+            .login-right h1 {
+                font-size: 24px;
+            }
+
+            .footer-links-top {
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .footer-links {
+                text-align: center;
             }
         }
     </style>
@@ -230,7 +292,6 @@
             </form>
         </div>
     </div>
-
 </body>
 
 </html>

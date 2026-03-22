@@ -55,7 +55,7 @@
             transform: translate(-50%, -50%);
             width: 70%;
             height: 70%;
-            background-image: url('{{ asset("img/login-icon.png") }}');
+            background-image: url('{{ asset('img/login-icon.png') }}');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
@@ -137,6 +137,66 @@
             cursor: pointer;
             margin-top: 10px;
         }
+
+        /* === PERUBAHAN CSS RESPONSIVE (MOBILE) === */
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                /* Mengubah arah box ke vertikal */
+            }
+
+            .login-left {
+                padding: 30px 20px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .header-logo {
+                justify-content: center;
+                order: 1;
+                /* Logo di atas */
+            }
+
+            .header-logo h2 {
+                text-align: left;
+            }
+
+            .login-left h3 {
+                font-size: 24px !important;
+            }
+
+            /* Perbaikan Background Image untuk Register */
+            .login-left::after {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                height: 200px;
+                z-index: 1;
+                margin: 20px 0;
+                /* Jarak atas bawah gambar */
+                order: 2;
+                /* Gambar di tengah */
+            }
+
+            .login-left>div:last-child {
+                order: 3;
+                /* Teks aktivasi di bawah gambar */
+            }
+
+            .login-right {
+                padding: 30px 20px;
+                max-height: none;
+                /* Mematikan max-height agar form tidak scroll di dalam kotak pada HP */
+                overflow-y: visible;
+            }
+
+            .login-right h1 {
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 
@@ -157,27 +217,34 @@
 
         <div class="login-right">
             <h1>Daftar Akun Penduduk</h1>
-            <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Lengkapi data di bawah untuk membuat akun.
-            </p>
+            <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Lengkapi data di bawah untuk membuat akun.</p>
 
             <form action="{{ route('register.warga') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label>Nomor Induk Kependudukan (NIK)</label>
-                    <input type="text" name="nik" value="{{ old('nik') }}" placeholder="16 digit NIK" required>
-                    @error('nik') <div class="error-msg">{{ $message }}</div> @enderror
+                    <input type="text" name="nik" value="{{ old('nik') }}" placeholder="16 digit NIK"
+                        required>
+                    @error('nik')
+                        <div class="error-msg">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" name="email" value="{{ old('email') }}" placeholder="contoh@mail.com" required>
-                    @error('email') <div class="error-msg">{{ $message }}</div> @enderror
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="contoh@mail.com"
+                        required>
+                    @error('email')
+                        <div class="error-msg">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label>Password</label>
                     <input type="password" name="password" placeholder="Minimal 8 karakter" required>
-                    @error('password') <div class="error-msg">{{ $message }}</div> @enderror
+                    @error('password')
+                        <div class="error-msg">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
