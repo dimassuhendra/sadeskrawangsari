@@ -39,7 +39,11 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ]
+        ],
+        'warga' => [
+            'driver' => 'session',
+            'provider' => 'warga',
+        ],
     ],
 
     /*
@@ -63,7 +67,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
-        ]
+        ],
+        'warga' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Warga::class,
+        ],
     ],
 
     /*

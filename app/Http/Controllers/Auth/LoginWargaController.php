@@ -18,15 +18,15 @@ class LoginWargaController extends Controller
 
     public function login(Request $request)
     {
+        // 1. Validasi Input
         $request->validate([
             'nik' => 'required|string',
             'password' => 'required',
         ]);
 
-        // 1. Cari data warga berdasarkan NIK
+        // 2. Cari data warga berdasarkan NIK
         $warga = Warga::where('nik', $request->nik)->first();
 
-        // 2. Jika NIK tidak ada di tabel warga
         if (!$warga) {
             return back()->withErrors(['nik' => 'NIK tidak terdaftar dalam data warga.'])->withInput();
         }
@@ -34,38 +34,36 @@ class LoginWargaController extends Controller
         // 3. Cari akun di tabel users menggunakan user_id yang ada di tabel warga
         $user = User::find($warga->user_id);
 
-        // 4. Jika user_id di tabel warga kosong atau tidak ditemukan di tabel users
         if (!$user) {
-            return back()->withErrors(['nik' => 'Akun login tidak ditemukan untuk NIK ini (user_id tidak cocok).'])->withInput();
+            return back()->withErrors(['nik' => 'Akun login tidak ditemukan untuk NIK ini.'])->withInput();
         }
 
-        // 5. Cek apakah password yang diinput cocok dengan password di tabel users
-        // Kita gunakan Hash::check karena Auth::attempt biasanya minta email
+        // 4. Cek kecocokan password dengan yang ada di tabel users
         if (Hash::check($request->password, $user->password)) {
 
-            // 6. Jika cocok, login-kan user tersebut ke sistem
-            Auth::login($user, $request->remember);
+            // 5. Login-kan spesifik ke guard 'warga' menggunakan objek $warga
+            // Gunakan metode login(), BUKAN attempt() agar tidak mencari password di tabel warga
+            $remember = $request->has('remember');
+            Auth::guard('warga')->login($warga, $remember);
 
-            // 7. Pastikan role-nya adalah warga
-            if (Auth::user()->role === 'warga') {
-                $request->session()->regenerate();
-                return redirect()->intended('/dashboard-warga');
-            }
+            // 6. Regenerate session untuk keamanan (mencegah session fixation)
+            $request->session()->regenerate();
 
-            // Jika ternyata role-nya bukan warga (misal admin nyasar)
-            Auth::logout();
-            return back()->withErrors(['nik' => 'Ini bukan akun warga!']);
+            return redirect()->route('dashboard.warga');
         }
 
-        // 8. Jika password salah
+        // 7. Jika password salah
         return back()->withErrors(['nik' => 'Password yang Anda masukkan salah.'])->withInput();
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        // Pastikan logout dilakukan spesifik pada guard 'warga'
+        Auth::guard('warga')->logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect('/');
     }
 }

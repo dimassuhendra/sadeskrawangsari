@@ -33,7 +33,7 @@ Route::middleware(['guest'])->group(function () {
 });
 
 // Route Warga
-Route::middleware(['auth', 'role:warga'])->group(function () {
+Route::middleware(['auth:warga'])->group(function () {
     Route::get('/dashboard-warga', [DashboardWargaController::class, 'index'])->name('dashboard.warga');
 
     Route::post('/logout-warga', [LoginWargaController::class, 'logout'])->name('logout.warga');

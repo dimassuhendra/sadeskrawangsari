@@ -20,17 +20,29 @@ class LoginAdminController extends Controller
             'password' => 'required',
         ]);
 
-        // Gunakan guard default 'web'
-        if (Auth::attempt($credentials, $request->remember)) {
-            $user = Auth::user();
+        $cekUser = \App\Models\User::where('email', $request->email)->first();
+
+        if (!$cekUser) {
+            dd('Akar masalah: Email admin TIDAK DITEMUKAN di tabel users! Apakah admin tersimpan di tabel yang berbeda?');
+        }
+
+        if (!\Illuminate\Support\Facades\Hash::check($request->password, $cekUser->password)) {
+            dd('Akar masalah: Email ketemu, tapi Password tidak cocok dengan hash di database!');
+        }
+
+        // 1. Panggil guard 'web' secara EKSPLISIT
+        if (Auth::guard('web')->attempt($credentials, $request->has('remember'))) {
+
+            // 2. Ambil data user dari guard 'web'
+            $user = Auth::guard('web')->user();
 
             if ($user->role === 'admin' || $user->role === 'kades') {
                 $request->session()->regenerate();
                 return redirect()->intended('/dashboard-admin');
             }
 
-            // Jika role-nya ternyata 'warga', paksa logout
-            Auth::logout();
+            // 3. Logout dari guard 'web' jika rolenya salah
+            Auth::guard('web')->logout();
             return back()->withErrors(['email' => 'Anda tidak memiliki akses admin.']);
         }
 
@@ -39,7 +51,8 @@ class LoginAdminController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('web')->logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

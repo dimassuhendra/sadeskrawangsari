@@ -10,17 +10,16 @@ class CheckRole
 {
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        // 1. Cek apakah sudah login
-        if (!Auth::check()) {
-            return redirect('/');
-        }
-
-        // 2. Cek apakah role user ada di dalam daftar role yang diperbolehkan
-        if (in_array(Auth::user()->role, $roles)) {
+        // Jika dia mencoba mengakses rute warga dan sudah login sebagai warga, izinkan
+        if (in_array('warga', $roles) && Auth::guard('warga')->check()) {
             return $next($request);
         }
 
-        // Jika tidak punya akses, lempar ke 403 atau dashboard masing-masing
-        abort(403, 'Anda tidak memiliki akses ke halaman ini.');
+        // Jika dia mencoba mengakses rute admin/kades
+        if (Auth::guard('web')->check() && in_array(Auth::user()->role, $roles)) {
+            return $next($request);
+        }
+
+        abort(403, 'Anda tidak memiliki akses ke halaman ini');
     }
 }
