@@ -102,73 +102,7 @@
                                     {{ $jenis_surat_nama }}</label>
                             </div>
 
-                            @if ($slug == 'sktm')
-                                <div class="form-group full-width">
-                                    <label>Tujuan SKTM</label>
-                                    <input type="text" name="tujuan_sktm" placeholder="Contoh: Pendaftaran Sekolah"
-                                        required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Jumlah Tanggungan</label>
-                                    <input type="number" name="jumlah_tanggungan" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Total Penghasilan Keluarga (Rp)</label>
-                                    <input type="number" name="total_penghasilan_keluarga" required>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label>Keterangan Aset</label>
-                                    <textarea name="keterangan_aset" class="custom-textarea" placeholder="Sebutkan aset (Rumah/Kendaraan/dll)"></textarea>
-                                </div>
-                            @elseif($slug == 'beasiswa')
-                                <div class="form-group full-width">
-                                    <label>Nama Institusi Pendidikan</label>
-                                    <input type="text" name="nama_institusi" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Tingkat Pendidikan</label>
-                                    <select name="tingkat_pendidikan">
-                                        <option value="SD">SD</option>
-                                        <option value="SMP">SMP</option>
-                                        <option value="SMA">SMA</option>
-                                        <option value="Perguruan Tinggi">Perguruan Tinggi</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Nama Penerima Beasiswa</label>
-                                    <input type="text" name="nama_penerima_beasiswa" required>
-                                </div>
-                            @elseif($slug == 'penghasilan')
-                                <div class="form-group">
-                                    <label>Pekerjaan Sebenarnya</label>
-                                    <input type="text" name="pekerjaan_sebenarnya" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Penghasilan Per Bulan (Rp)</label>
-                                    <input type="number" name="penghasilan_per_bulan" required>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label>Tujuan Surat</label>
-                                    <input type="text" name="tujuan_surat" required>
-                                </div>
-                            @elseif($slug == 'pindah-domisili')
-                                <div class="form-group full-width">
-                                    <label>Alamat Tujuan Lengkap</label>
-                                    <textarea name="alamat_tujuan_lengkap" class="custom-textarea" required></textarea>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label>Alasan Pindah</label>
-                                    <input type="text" name="alasan_pindah" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Tgl Rencana Pindah</label>
-                                    <input type="date" name="tgl_rencana_pindah" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Jumlah Anggota Ikut</label>
-                                    <input type="number" name="jumlah_ikut_pindah" value="0">
-                                </div>
-                            @endif
+                            @includeIf('warga.pengajuan.form.' . $slug)
                         </div>
 
                         <div class="form-actions">

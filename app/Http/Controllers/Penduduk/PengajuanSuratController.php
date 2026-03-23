@@ -26,19 +26,19 @@ class PengajuanSuratController extends Controller
         $surat_info = DB::table('jenis_surat')->where('nama_surat', 'like', '%' . $jenis_surat_nama . '%')->first();
 
         $jenis_id_map = [
-            'sktm' => 1,
-            'beasiswa' => 2,
-            'iumk' => 3,
-            'domisili' => 4,
-            'penghasilan' => 5,
-            'kehilangan-dok' => 6,
-            'kematian' => 7,
-            'pengantar-ktp' => 8,
-            'jaminan-kesehatan' => 9,
-            'izin-keramaian' => 10,
-            'pindah-domisili' => 11,
-            'perubahan-data' => 12,
-            'belum-menikah' => 13
+            'surat-sktm' => 1,
+            'surat-beasiswa' => 2,
+            'surat-iumk' => 3,
+            'surat-domisili' => 4,
+            'surat-penghasilan' => 5,
+            'surat-kehilangan' => 6,
+            'surat-kematian' => 7,
+            'surat-pengantar' => 8,
+            'surat-jamkes' => 9,
+            'surat-keramaian' => 10,
+            'surat-pindah' => 11,
+            'surat-perubahandata' => 12,
+            'surat-belummenikah' => 13
         ];
 
         $jenis_id = $surat_info ? $surat_info->id : ($jenis_id_map[$slug] ?? null);
@@ -55,23 +55,23 @@ class PengajuanSuratController extends Controller
         ];
 
         // 2. Validasi Spesifik sesuai kolom di Database Anda
-        if ($request->slug == 'sktm') {
+        if ($request->slug == 'surat-sktm') {
             $rules += ['tujuan_sktm' => 'required', 'jumlah_tanggungan' => 'required|integer', 'keterangan_aset' => 'required', 'total_penghasilan_keluarga' => 'required|numeric'];
-        } elseif ($request->slug == 'beasiswa') {
+        } elseif ($request->slug == 'surat-beasiswa') {
             $rules += ['nama_institusi' => 'required', 'tingkat_pendidikan' => 'required|in:SD,SMP,SMA,Perguruan Tinggi,Lainnya', 'nama_penerima_beasiswa' => 'required'];
-        } elseif ($request->slug == 'iumk') {
+        } elseif ($request->slug == 'surat-iumk') {
             $rules += ['nama_usaha' => 'required', 'jenis_usaha' => 'required', 'lokasi_usaha' => 'required', 'modal_usaha' => 'required|numeric'];
-        } elseif ($request->slug == 'domisili') {
+        } elseif ($request->slug == 'surat-domisili') {
             $rules += ['tujuan_pembuatan' => 'required'];
-        } elseif ($request->slug == 'penghasilan') {
+        } elseif ($request->slug == 'surat-penghasilan') {
             $rules += ['penghasilan_per_bulan' => 'required|numeric', 'pekerjaan_sebenarnya' => 'required', 'tujuan_surat' => 'required'];
-        } elseif ($request->slug == 'kehilangan-dok') {
+        } elseif ($request->slug == 'surat-kehilangan') {
             $rules += ['jenis_dokumen_hilang' => 'required', 'keterangan_hilang' => 'required', 'lokasi_hilang' => 'required'];
-        } elseif ($request->slug == 'kematian') {
+        } elseif ($request->slug == 'surat-kematian') {
             $rules += ['nik_yang_meninggal' => 'required|size:16', 'nama_yang_meninggal' => 'required', 'tanggal_kematian' => 'required', 'tempat_kematian' => 'required', 'penyebab_kematian' => 'required', 'nik_pelapor' => 'required|size:16'];
-        } elseif ($request->slug == 'pindah-domisili') {
+        } elseif ($request->slug == 'surat-pindah') {
             $rules += ['alamat_tujuan_lengkap' => 'required', 'alasan_pindah' => 'required', 'tgl_rencana_pindah' => 'required|date', 'jumlah_ikut_pindah' => 'required|integer'];
-        } elseif ($request->slug == 'belum-menikah') {
+        } elseif ($request->slug == 'surat-belummenikah') {
             $rules += ['tujuan_permohonan' => 'required'];
         }
 
