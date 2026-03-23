@@ -51,12 +51,5 @@
         </p>
     </div>
 
-    {{-- Bagian Tanda Tangan (Opsional jika belum ada di pdf-layout) --}}
-    <div class="tanda-tangan" style="margin-top: 40px; text-align: right; float: right; width: 300px;">
-        <p>Krawang Sari, {{ \Carbon\Carbon::parse($surat->created_at)->translatedFormat('d F Y') }}</p>
-        <p>Kepala Desa Krawang Sari,</p>
-        <br><br><br>
-        <p><strong>( NAMA KEPALA DESA )</strong></p>
-    </div>
     <div style="clear: both;"></div>
 @endsection

@@ -12,7 +12,7 @@
 
         body {
             font-family: 'Times New Roman', Times, serif;
-            font-size: 12pt;
+            font-size: 11pt;
             line-height: 1.5;
             margin: 0;
             padding: 0;
@@ -91,6 +91,7 @@
             float: right;
             width: 250px;
             text-align: center;
+            line-height: 0.5;
         }
 
         .space {
@@ -124,7 +125,7 @@
                 <p>Krawang Sari, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
                 <p>Kepala Desa Krawang Sari</p>
                 <div class="space"></div>
-                <p><strong>( ____________________ )</strong></p>
+                <p style="text-decoration: underline;"><strong>NIKMATUS SOLEKAH</strong></p>
                 <p>NIP. .........................</p>
             </div>
         </div>
