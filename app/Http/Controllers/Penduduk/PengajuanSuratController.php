@@ -92,8 +92,8 @@ class PengajuanSuratController extends Controller
             ]);
 
             // 4. Persiapkan Data Detail (Hanya kolom yang ada di tabel detail)
-            $tableName = 'surat_' . str_replace('-', '_', $request->slug) . '_detail';
-
+            $tableName = str_replace('-', '_', $request->slug) . '_detail';
+            
             // Ambil semua input kecuali yang milik tabel utama
             $detailData = $request->except(['_token', 'slug', 'jenis_surat_id', 'metode_ambil']);
             $detailData['pengajuan_id'] = $pengajuanId;

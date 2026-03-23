@@ -143,6 +143,7 @@ class SuratMasukController extends Controller
             'penghasilanDetail',
             'sktmDetail',
             'beasiswaDetail',
+            'iumkDetail',
         ])->findOrFail($id);
 
         if ($surat->status !== 'Disetujui') {
@@ -158,6 +159,8 @@ class SuratMasukController extends Controller
             $view = 'admin.surat.pdf-keterangan-penghasilan';
         } elseif (stripos($namaSurat, 'Surat Keterangan Tidak Mampu') !== false || stripos($namaSurat, 'Tidak Mampu') !== false) {
             $view = 'admin.surat.pdf-sktm';
+        } elseif (stripos($namaSurat, 'Surat Keterangan Izin Usaha') !== false || stripos($namaSurat, 'IUMK') !== false) {
+            $view = 'admin.surat.pdf-iumk';
         } else {
             $view = 'admin.surat.pdf-umum';
         }
