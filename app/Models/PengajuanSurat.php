@@ -81,6 +81,11 @@ class PengajuanSurat extends Model
         return $this->hasOne(SuratPengantarKtpDetail::class, 'pengajuan_id', 'id');
     }
 
+    public function pengantarDetail()
+    {
+        return $this->hasOne(SuratPengantarDetail::class, 'pengajuan_id', 'id');
+    }
+
     public function penghasilanDetail()
     {
         return $this->hasOne(SuratPenghasilanDetail::class, 'pengajuan_id', 'id');

@@ -68,7 +68,7 @@ class SuratMasukController extends Controller
             6 => 'BLMK',  // Belum Menikah
             7  => 'HILG', // Kehilangan
             8  => 'KMAT', // Kematian
-            9  => 'KTPP', // Pengantar KTP
+            9  => 'PNTR', // Pengantar KTP
             10 => 'JAMK',
             11 => 'IZRM', // Izin Ramai
             12 => 'PNDH', // Pindah
@@ -147,6 +147,7 @@ class SuratMasukController extends Controller
             'belumMenikahDetail',
             'izinKeramaianDetail',
             'kehilanganDokDetail',
+            'pengantarDetail'
         ])->findOrFail($id);
 
         if ($surat->status !== 'Disetujui') {
@@ -170,6 +171,8 @@ class SuratMasukController extends Controller
             $view = 'admin.surat.pdf-keramaian';
         } elseif (stripos($namaSurat, 'Surat Kehilangan') !== false || stripos($namaSurat, 'Kehilangan') !== false) {
             $view = 'admin.surat.pdf-kehilangan';
+        } elseif (stripos($namaSurat, 'Surat Pengantar') !== false || stripos($namaSurat, 'Pengantar') !== false) {
+            $view = 'admin.surat.pdf-pengantar';
         } else {
             $view = 'admin.surat.pdf-umum';
         }

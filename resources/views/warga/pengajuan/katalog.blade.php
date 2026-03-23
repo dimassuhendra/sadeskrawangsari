@@ -15,15 +15,15 @@
                     ['name' => 'Surat Keterangan Tidak Mampu', 'slug' => 'surat-sktm', 'icon' => 'fa-hands-helping', 'desc' => 'Surat Keterangan Tidak Mampu.', 'color' => '#4e73df'],
                     ['name' => 'Surat Rekomendasi Beasiswa', 'slug' => 'surat-beasiswa', 'icon' => 'fa-graduation-cap', 'desc' => 'Keperluan pengajuan beasiswa.', 'color' => '#1cc88a'],
                     ['name' => 'Surat IUMK', 'slug' => 'surat-iumk', 'icon' => 'fa-store', 'desc' => 'Izin Usaha Mikro Kecil.', 'color' => '#36b9cc'],
-                    ['name' => 'Surat Keterangan Domisili', 'slug' => 'surat-domisili', 'icon' => 'fa-map-marker-alt', 'desc' => 'Keterangan domisili tinggal.', 'color' => '#f6c23e'],
+                    // ['name' => 'Surat Keterangan Domisili', 'slug' => 'surat-domisili', 'icon' => 'fa-map-marker-alt', 'desc' => 'Keterangan domisili tinggal.', 'color' => '#f6c23e'],
                     ['name' => 'Surat Keterangan Penghasilan', 'slug' => 'surat-penghasilan', 'icon' => 'fa-wallet', 'desc' => 'Rincian penghasilan orang tua/pribadi.', 'color' => '#e74a3b'],
                     ['name' => 'Surat Keterangan Belum Menikah', 'slug' => 'surat-belummenikah', 'icon' => 'fa-user-friends', 'desc' => 'Status belum pernah menikah.', 'color' => '#6f42c1'],
                     ['name' => 'Surat Kehilangan', 'slug' => 'surat-kehilangan', 'icon' => 'fa-file-alt', 'desc' => 'Pengantar kehilangan dokumen.', 'color' => '#fd7e14'],
-                    ['name' => 'Surat Kematian', 'slug' => 'surat-kematian', 'icon' => 'fa-skull', 'desc' => 'Surat keterangan kematian warga.', 'color' => '#5a5c69'],
-                    ['name' => 'Surat Pengantar KTP', 'slug' => 'surat-pengantar', 'icon' => 'fa-id-card', 'desc' => 'Permohonan KTP baru/perpanjang.', 'color' => '#20c997'],
-                    ['name' => 'Surat Jaminan Kesehatan', 'slug' => 'surat-jamkes', 'icon' => 'fa-hospital-user', 'desc' => 'Keterangan jaminan kesehatan.', 'color' => '#d63384'],
+                    // ['name' => 'Surat Kematian', 'slug' => 'surat-kematian', 'icon' => 'fa-skull', 'desc' => 'Surat keterangan kematian warga.', 'color' => '#5a5c69'],
+                    ['name' => 'Surat Pengantar', 'slug' => 'surat-pengantar', 'icon' => 'fa-id-card', 'desc' => 'Permohonan KTP baru/perpanjang, Akta Kematian/Kelahiran, Kartu Keluarga.', 'color' => '#20c997'],
+                    // ['name' => 'Surat Jaminan Kesehatan', 'slug' => 'surat-jamkes', 'icon' => 'fa-hospital-user', 'desc' => 'Keterangan jaminan kesehatan.', 'color' => '#d63384'],
                     ['name' => 'Surat Izin Keramaian', 'slug' => 'surat-keramaian', 'icon' => 'fa-users', 'desc' => 'Izin mengadakan acara publik.', 'color' => '#48b3af'],
-                    ['name' => 'Surat Pengantar Pindah Domisili', 'slug' => 'surat-pindah', 'icon' => 'fa-truck-moving', 'desc' => 'Pengantar pindah alamat.', 'color' => '#007bff'],
+                    // ['name' => 'Surat Pengantar Pindah Domisili', 'slug' => 'surat-pindah', 'icon' => 'fa-truck-moving', 'desc' => 'Pengantar pindah alamat.', 'color' => '#007bff'],
                 ];
             @endphp
 
@@ -37,7 +37,7 @@
                             <i class="fas {{ $surat['icon'] }}"></i>
                         </div>
                         <h4>{{ $surat['name'] }}</h4>
-                        <p>{{ $surat['desc'] }}</p>
+                        <p style="text-align: justify;">{{ $surat['desc'] }}</p>
                         <div class="card-footer">
                             <span>Ajukan Sekarang</span>
                             <i class="fas fa-chevron-right"></i>

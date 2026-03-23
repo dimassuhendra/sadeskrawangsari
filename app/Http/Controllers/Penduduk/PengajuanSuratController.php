@@ -75,6 +75,8 @@ class PengajuanSuratController extends Controller
             $rules += ['tujuan_permohonan' => 'required'];
         } elseif ($request->slug == 'surat-keramaian') {
             $rules += ['nama_kegiatan' => 'required', 'lokasi_kegiatan' => 'required', 'tgl_mulai' => 'required|date', 'tgl_selesai' => 'required|date|after_or_equal:tgl_mulai', 'penanggung_jawab' => 'required'];
+        } elseif ($request->slug == 'surat-pengantar') {
+            $rules += ['jenis_pengantar' => 'required', 'keterangan' => 'required'];
         }
 
         $request->validate($rules);
