@@ -65,14 +65,14 @@ class SuratMasukController extends Controller
             3  => 'IUMK',
             4  => 'DOMI',
             5  => 'PHSL', // Penghasilan
-            6  => 'HILG', // Kehilangan
-            7  => 'KMAT', // Kematian
-            8  => 'KTPP', // Pengantar KTP
-            9  => 'JAMK',
-            10 => 'IZRM', // Izin Ramai
-            11 => 'PNDH', // Pindah
-            12 => 'UBDT', // Ubah Data
-            13 => 'BLMK'  // Belum Menikah
+            6 => 'BLMK',  // Belum Menikah
+            7  => 'HILG', // Kehilangan
+            8  => 'KMAT', // Kematian
+            9  => 'KTPP', // Pengantar KTP
+            10 => 'JAMK',
+            11 => 'IZRM', // Izin Ramai
+            12 => 'PNDH', // Pindah
+            13 => 'UBDT', // Ubah Data
         ];
 
         // Ambil kode berdasarkan ID, jika tidak ada fallback ke 'SURAT'
@@ -144,6 +144,7 @@ class SuratMasukController extends Controller
             'sktmDetail',
             'beasiswaDetail',
             'iumkDetail',
+            'belumMenikahDetail',
         ])->findOrFail($id);
 
         if ($surat->status !== 'Disetujui') {
@@ -156,11 +157,13 @@ class SuratMasukController extends Controller
         if (stripos($namaSurat, 'Surat Rekomendasi Beasiswa') !== false) {
             $view = 'admin.surat.pdf-rekomendasi-beasiswa';
         } elseif (stripos($namaSurat, 'Surat Keterangan Penghasilan') !== false) {
-            $view = 'admin.surat.pdf-keterangan-penghasilan';
+            $view = 'admin.surat.pdf-penghasilan';
         } elseif (stripos($namaSurat, 'Surat Keterangan Tidak Mampu') !== false || stripos($namaSurat, 'Tidak Mampu') !== false) {
             $view = 'admin.surat.pdf-sktm';
         } elseif (stripos($namaSurat, 'Surat Keterangan Izin Usaha') !== false || stripos($namaSurat, 'IUMK') !== false) {
             $view = 'admin.surat.pdf-iumk';
+        } elseif (stripos($namaSurat, 'Surat Belum Menikah') !== false || stripos($namaSurat, 'Belum Menikah') !== false) {
+            $view = 'admin.surat.pdf-belummenikah';
         } else {
             $view = 'admin.surat.pdf-umum';
         }

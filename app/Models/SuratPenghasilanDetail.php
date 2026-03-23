@@ -9,7 +9,7 @@ class SuratPenghasilanDetail extends Model
     protected $table = 'surat_penghasilan_detail';
     protected $primaryKey = 'pengajuan_id';
     public $incrementing = false;
-    protected $fillable = ['pengajuan_id', 'penghasilan_per_bulan', 'pekerjaan_sebenarnya', 'tujuan_surat'];
+    protected $fillable = ['pengajuan_id', 'penghasilan_per_bulan', 'pekerjaan_sebenarnya', 'tempat_kerja', 'tujuan_surat'];
 
     public function pengajuan()
     {

@@ -31,14 +31,14 @@ class PengajuanSuratController extends Controller
             'surat-iumk' => 3,
             'surat-domisili' => 4,
             'surat-penghasilan' => 5,
-            'surat-kehilangan' => 6,
-            'surat-kematian' => 7,
-            'surat-pengantar' => 8,
-            'surat-jamkes' => 9,
-            'surat-keramaian' => 10,
-            'surat-pindah' => 11,
-            'surat-perubahandata' => 12,
-            'surat-belummenikah' => 13
+            'surat-belummenikah' => 6,
+            'surat-kehilangan' => 7,
+            'surat-kematian' => 8,
+            'surat-pengantar' => 9,
+            'surat-jamkes' => 10,
+            'surat-keramaian' => 11,
+            'surat-pindah' => 12,
+            'surat-perubahandata' => 13
         ];
 
         $jenis_id = $surat_info ? $surat_info->id : ($jenis_id_map[$slug] ?? null);
@@ -93,7 +93,7 @@ class PengajuanSuratController extends Controller
 
             // 4. Persiapkan Data Detail (Hanya kolom yang ada di tabel detail)
             $tableName = str_replace('-', '_', $request->slug) . '_detail';
-            
+
             // Ambil semua input kecuali yang milik tabel utama
             $detailData = $request->except(['_token', 'slug', 'jenis_surat_id', 'metode_ambil']);
             $detailData['pengajuan_id'] = $pengajuanId;

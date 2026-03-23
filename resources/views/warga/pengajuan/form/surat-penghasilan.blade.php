@@ -1,6 +1,10 @@
 <div class="form-group">
-    <label>Pekerjaan Sebenarnya</label>
+    <label>Pekerjaan</label>
     <input type="text" name="pekerjaan_sebenarnya" required>
+</div>
+<div class="form-group">
+    <label>Nama Perusahaan / Instansi</label>
+    <input type="text" name="tempat_kerja" required>
 </div>
 <div class="form-group">
     <label>Penghasilan Per Bulan (Rp)</label>
