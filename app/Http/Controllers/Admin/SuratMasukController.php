@@ -145,6 +145,8 @@ class SuratMasukController extends Controller
             'beasiswaDetail',
             'iumkDetail',
             'belumMenikahDetail',
+            'izinKeramaianDetail',
+            'kehilanganDokDetail',
         ])->findOrFail($id);
 
         if ($surat->status !== 'Disetujui') {
@@ -164,6 +166,10 @@ class SuratMasukController extends Controller
             $view = 'admin.surat.pdf-iumk';
         } elseif (stripos($namaSurat, 'Surat Belum Menikah') !== false || stripos($namaSurat, 'Belum Menikah') !== false) {
             $view = 'admin.surat.pdf-belummenikah';
+        } elseif (stripos($namaSurat, 'Surat Izin Keramaian') !== false || stripos($namaSurat, 'Keramaian') !== false) {
+            $view = 'admin.surat.pdf-keramaian';
+        } elseif (stripos($namaSurat, 'Surat Kehilangan') !== false || stripos($namaSurat, 'Kehilangan') !== false) {
+            $view = 'admin.surat.pdf-kehilangan';
         } else {
             $view = 'admin.surat.pdf-umum';
         }

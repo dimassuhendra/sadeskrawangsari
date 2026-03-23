@@ -73,6 +73,8 @@ class PengajuanSuratController extends Controller
             $rules += ['alamat_tujuan_lengkap' => 'required', 'alasan_pindah' => 'required', 'tgl_rencana_pindah' => 'required|date', 'jumlah_ikut_pindah' => 'required|integer'];
         } elseif ($request->slug == 'surat-belummenikah') {
             $rules += ['tujuan_permohonan' => 'required'];
+        } elseif ($request->slug == 'surat-keramaian') {
+            $rules += ['nama_kegiatan' => 'required', 'lokasi_kegiatan' => 'required', 'tgl_mulai' => 'required|date', 'tgl_selesai' => 'required|date|after_or_equal:tgl_mulai', 'penanggung_jawab' => 'required'];
         }
 
         $request->validate($rules);
@@ -105,7 +107,6 @@ class PengajuanSuratController extends Controller
 
             DB::commit();
             return redirect()->route('dashboard.warga')->with('success', 'Pengajuan berhasil dikirim.');
-
         } catch (\Exception $e) {
             DB::rollback();
             Log::error("Gagal simpan: " . $e->getMessage());
