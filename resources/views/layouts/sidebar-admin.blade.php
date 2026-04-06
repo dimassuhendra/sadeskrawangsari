@@ -36,7 +36,7 @@ $tahun = date('Y');
     /* 1. Pengaturan Scroll pada Sidebar Utama */
     .sidebar {
         width: var(--sidebar-width);
-        background-color: var(--color-2);
+        background-color: var(--color-1);
         height: 100vh;
         /* Paksa tinggi sidebar seukuran layar browser */
         color: white;

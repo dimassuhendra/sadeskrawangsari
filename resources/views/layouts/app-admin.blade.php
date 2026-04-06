@@ -34,7 +34,7 @@
             left: 0;
             right: 0;
             height: 60px;
-            background-color: var(--color-2);
+            background-color: var(--color-1);
             color: white;
             align-items: center;
             justify-content: space-between;
@@ -66,7 +66,7 @@
 
         .sidebar {
             width: var(--sidebar-width);
-            background-color: var(--color-2);
+            background-color: var(--color-1);
             min-height: 100vh;
             color: white;
             position: fixed;
