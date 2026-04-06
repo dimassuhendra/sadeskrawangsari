@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\SuratMasukController;
 use App\Http\Controllers\Admin\SuratArsipController;
 use App\Http\Controllers\Admin\PendudukController;
+use App\Http\Controllers\Admin\PengaturanDesaController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -81,7 +82,9 @@ Route::middleware(['auth', 'role:admin,kades'])->group(function () {
     Route::get('/admin/berita', [DashboardAdminController::class, 'beritaIndex'])->name('admin.berita.index');
 
     Route::get('/admin/profile', [DashboardAdminController::class, 'profile'])->name('admin.profile');
-    Route::get('/admin/pengaturan', [DashboardAdminController::class, 'pengaturan'])->name('admin.pengaturan');
+
+    Route::get('/admin/pengaturan', [PengaturanDesaController::class, 'index'])->name('admin.pengaturan');
+    Route::post('/admin/pengaturan/update', [PengaturanDesaController::class, 'update'])->name('admin.pengaturan.update');
 
     Route::get('/admin/penduduk', [PendudukController::class, 'index'])->name('admin.penduduk');
     Route::get('/admin/penduduk/export-proses', [PendudukController::class, 'exportData'])->name('admin.penduduk.export');
