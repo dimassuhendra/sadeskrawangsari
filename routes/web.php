@@ -14,6 +14,7 @@ use App\Http\Controllers\Penduduk\RiwayatPengajuanController;
 
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\SuratMasukController;
+use App\Http\Controllers\Admin\SuratArsipController;
 use App\Http\Controllers\Admin\PendudukController;
 
 use Illuminate\Support\Facades\Route;
@@ -69,7 +70,7 @@ Route::middleware(['auth', 'role:admin,kades'])->group(function () {
     Route::get('/admin/surat-cetak/{id}', [SuratMasukController::class, 'cetakSurat'])->name('admin.surat-cetak');
 
     Route::get('/admin/surat-masuk', [DashboardAdminController::class, 'suratMasuk'])->name('admin.surat-masuk');
-    Route::get('/admin/surat-arsip', [DashboardAdminController::class, 'suratArsip'])->name('admin.surat-arsip');
+    Route::get('/admin/surat-arsip', [SuratArsipController::class, 'index'])->name('admin.surat-arsip');
     Route::get('/admin/surat-proses', [DashboardAdminController::class, 'suratProses'])->name('admin.surat-proses');
 
 
