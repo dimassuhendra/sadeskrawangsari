@@ -59,7 +59,9 @@ $tahun = date('Y');
             class="menu-item {{ request()->routeIs('pengajuan.katalog') ? 'active' : '' }}">
             <i class="fas fa-file-signature"></i> Buat Pengajuan
         </a>
-        <a href="#" class="menu-item"><i class="fas fa-history"></i> Riwayat & Progres</a>
+        <a href="{{ route('riwayat.index') }}" class="menu-item">
+            <i class="fas fa-history"></i> Riwayat & Progres
+        </a>
 
         <small class="menu-label"
             style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Layanan

@@ -127,15 +127,56 @@ class PengajuanSuratController extends Controller
     // Fungsi Cetak PDF (Bisa diakses Admin & Warga)
     public function cetakSurat($id)
     {
-        $surat = PengajuanSurat::with(['warga', 'jenisSurat'])->findOrFail($id);
+        // 1. Load pengajuan beserta warga, jenisSurat, dan SEMUA relasi tabel detail
+        $surat = PengajuanSurat::with([
+            'warga',
+            'jenisSurat',
+            'penghasilanDetail',
+            'sktmDetail',
+            'beasiswaDetail',
+            'iumkDetail',
+            'belumMenikahDetail',
+            'izinKeramaianDetail',
+            'kehilanganDokDetail',
+            'pengantarDetail'
+        ])->findOrFail($id);
+
+        // 2. Keamanan: Pastikan yang mencetak adalah pemilik surat
+        if ($surat->warga_nik !== Auth::guard('warga')->user()->nik) {
+            abort(403, 'Anda tidak memiliki akses ke dokumen ini.');
+        }
 
         if ($surat->status !== 'Disetujui') {
             return back()->with('error', 'Surat belum disetujui untuk dicetak.');
         }
 
-        // Gunakan library DomPDF (pastikan sudah install: composer require barryvdh/laravel-dompdf)
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.surat.pdf-template', compact('surat'));
+        $namaSurat = $surat->jenisSurat->nama_surat;
 
-        return $pdf->stream('Surat_' . $surat->warga_nik . '.pdf');
+        // 3. Mapping View Template PDF (Logika yang sama seperti di Admin)
+        if (stripos($namaSurat, 'Surat Rekomendasi Beasiswa') !== false) {
+            $view = 'admin.surat.pdf-rekomendasi-beasiswa';
+        } elseif (stripos($namaSurat, 'Surat Keterangan Penghasilan') !== false) {
+            $view = 'admin.surat.pdf-penghasilan';
+        } elseif (stripos($namaSurat, 'Surat Keterangan Tidak Mampu') !== false || stripos($namaSurat, 'Tidak Mampu') !== false) {
+            $view = 'admin.surat.pdf-sktm';
+        } elseif (stripos($namaSurat, 'Surat Keterangan Izin Usaha') !== false || stripos($namaSurat, 'IUMK') !== false) {
+            $view = 'admin.surat.pdf-iumk';
+        } elseif (stripos($namaSurat, 'Surat Belum Menikah') !== false || stripos($namaSurat, 'Belum Menikah') !== false) {
+            $view = 'admin.surat.pdf-belummenikah';
+        } elseif (stripos($namaSurat, 'Surat Izin Keramaian') !== false || stripos($namaSurat, 'Keramaian') !== false) {
+            $view = 'admin.surat.pdf-keramaian';
+        } elseif (stripos($namaSurat, 'Surat Kehilangan') !== false || stripos($namaSurat, 'Kehilangan') !== false) {
+            $view = 'admin.surat.pdf-kehilangan';
+        } elseif (stripos($namaSurat, 'Surat Pengantar') !== false || stripos($namaSurat, 'Pengantar') !== false) {
+            $view = 'admin.surat.pdf-pengantar';
+        } else {
+            $view = 'admin.surat.pdf-umum';
+        }
+
+        // 4. Proses render PDF
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView($view, compact('surat'));
+        $pdf->setPaper('letter', 'portrait');
+
+        return $pdf->stream('Surat_' . $namaSurat . '_' . $surat->warga->nama_lengkap . '.pdf');
     }
 }

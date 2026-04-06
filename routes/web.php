@@ -10,6 +10,7 @@ use App\Http\Controllers\Penduduk\PengajuanSuratController;
 use App\Http\Controllers\Penduduk\PengaduanController;
 use App\Http\Controllers\Penduduk\ProfileWargaController;
 use App\Http\Controllers\Penduduk\KeluargaController;
+use App\Http\Controllers\Penduduk\RiwayatPengajuanController;
 
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\SuratMasukController;
@@ -44,6 +45,9 @@ Route::middleware(['auth:warga'])->group(function () {
 
     Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan');
     Route::post('/pengaduan/kirim', [PengaduanController::class, 'store'])->name('pengaduan.store');
+
+    Route::get('/warga/riwayat-pengajuan', [RiwayatPengajuanController::class, 'index'])->name('riwayat.index');
+    Route::get('/warga/pengajuan/cetak/{id}', [PengajuanSuratController::class, 'cetakSurat'])->name('pengajuan.cetak');
 
     Route::get('/profil-saya', [ProfileWargaController::class, 'index'])->name('profile.warga');
     Route::post('/profil-saya/update', [ProfileWargaController::class, 'update'])->name('profile.update');
