@@ -22,7 +22,6 @@ class PengajuanSuratController extends Controller
         $slug = $jenis;
         $jenis_surat_nama = str_replace('-', ' ', ucwords($jenis, '-'));
 
-        // Ambil data jenis surat dari DB berdasarkan kode/nama untuk mendapatkan ID-nya
         $surat_info = DB::table('jenis_surat')->where('nama_surat', 'like', '%' . $jenis_surat_nama . '%')->first();
 
         $jenis_id_map = [
@@ -43,13 +42,24 @@ class PengajuanSuratController extends Controller
 
         $jenis_id = $surat_info ? $surat_info->id : ($jenis_id_map[$slug] ?? null);
 
-        return view('warga.pengajuan.create', compact('jenis_surat_nama', 'slug', 'jenis_id'));
+        // AMBIL DATA KELUARGA
+        $user = Auth::guard('warga')->user();
+        $anggota_keluarga = [];
+
+        // Cek apakah user memiliki no_kk, jika ada, tarik semua warga dengan no_kk yang sama
+        if ($user->no_kk) {
+            $anggota_keluarga = DB::table('warga')->where('no_kk', $user->no_kk)->get();
+        }
+
+        // Tambahkan variabel anggota_keluarga ke compact()
+        return view('warga.pengajuan.create', compact('jenis_surat_nama', 'slug', 'jenis_id', 'anggota_keluarga'));
     }
 
     public function store(Request $request)
     {
         // 1. Validasi Input Dasar
         $rules = [
+            'warga_nik_pemohon' => 'required',
             'jenis_surat_id' => 'required',
             'metode_ambil' => 'required|in:kantor,mandiri',
         ];
@@ -85,11 +95,10 @@ class PengajuanSuratController extends Controller
             DB::beginTransaction();
 
             // 3. Simpan ke Tabel Utama (pengajuan_surat)
-            // Sesuai DB: id, warga_nik, jenis_surat_id, status, metode_ambil
             $pengajuanId = DB::table('pengajuan_surat')->insertGetId([
-                'warga_nik' => Auth::guard('warga')->user()->nik,
+                'warga_nik' => $request->warga_nik_pemohon,
                 'jenis_surat_id' => $request->jenis_surat_id,
-                'status' => 'Diajukan', // Sesuai Enum di DB
+                'status' => 'Diajukan',
                 'metode_ambil' => $request->metode_ambil,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -98,8 +107,8 @@ class PengajuanSuratController extends Controller
             // 4. Persiapkan Data Detail (Hanya kolom yang ada di tabel detail)
             $tableName = str_replace('-', '_', $request->slug) . '_detail';
 
-            // Ambil semua input kecuali yang milik tabel utama
-            $detailData = $request->except(['_token', 'slug', 'jenis_surat_id', 'metode_ambil']);
+            // Jangan lupa tambahkan 'warga_nik_pemohon' ke dalam array except() agar tidak ikut tersimpan ke tabel detail surat
+            $detailData = $request->except(['_token', 'slug', 'jenis_surat_id', 'metode_ambil', 'warga_nik_pemohon']);
             $detailData['pengajuan_id'] = $pengajuanId;
             $detailData['created_at'] = now();
             $detailData['updated_at'] = now();

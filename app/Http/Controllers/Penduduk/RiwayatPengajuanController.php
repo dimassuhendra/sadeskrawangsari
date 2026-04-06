@@ -6,21 +6,31 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PengajuanSurat;
+use App\Models\Warga;
 
 class RiwayatPengajuanController extends Controller
 {
     public function index()
     {
-        // Ambil NIK warga yang sedang login
-        $nik = Auth::guard('warga')->user()->nik;
+        // Ambil data warga yang sedang login
+        $user = Auth::guard('warga')->user();
 
-        // Ambil data pengajuan beserta relasi jenis_surat, urutkan dari yang terbaru
-        $riwayat = PengajuanSurat::with('jenisSurat')
-            ->where('warga_nik', $nik)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        // Kumpulkan semua NIK dalam 1 KK (termasuk NIK user yang login)
+        if ($user->no_kk) {
+            // Jika sudah punya KK, ambil daftar semua NIK anggota keluarga
+            $list_nik = Warga::where('no_kk', $user->no_kk)->pluck('nik')->toArray();
+        } else {
+            // Jika belum punya KK, tampilkan berdasarkan NIK sendiri saja
+            $list_nik = [$user->nik];
+        }
 
-        // Arahkan ke folder view yang baru agar lebih terstruktur
+        // Ambil data pengajuan menggunakan whereIn (mencari banyak NIK sekaligus)
+        // Tambahkan relasi 'warga' agar kita bisa memanggil nama pemohon di tampilan
+        $riwayat = PengajuanSurat::with(['jenisSurat', 'warga'])
+                    ->whereIn('warga_nik', $list_nik)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
         return view('warga.riwayat', compact('riwayat'));
     }
 }

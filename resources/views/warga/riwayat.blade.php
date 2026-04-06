@@ -23,12 +23,12 @@
                 Daftar Riwayat Pengajuan</h3>
 
             <div style="overflow-x: auto;">
-                <table style="width:100%; border-collapse: collapse; min-width: 800px;">
+                <table style="width:100%; border-collapse: collapse; min-width: 900px;">
                     <thead>
                         <tr style="text-align:left; border-bottom: 2px solid #eee;">
                             <th style="padding:12px; width: 5%;">No</th>
                             <th style="padding:12px;">Tgl Pengajuan</th>
-                            <th style="padding:12px;">Tgl Disetujui</th>
+                            <th style="padding:12px;">Nama Dalam Surat</th>
                             <th style="padding:12px;">Jenis Surat</th>
                             <th style="padding:12px;">Metode Ambil</th>
                             <th style="padding:12px; text-align:center;">Status</th>
@@ -41,13 +41,16 @@
                                 <td style="padding:12px;">{{ $index + 1 }}</td>
                                 <td style="padding:12px;">
                                     {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d M Y') }}</td>
+
                                 <td style="padding:12px;">
-                                    @if ($item->status == 'Disetujui')
-                                        {{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('d M Y') }}
+                                    <strong>{{ $item->warga->nama_lengkap ?? 'Data tidak ditemukan' }}</strong>
+                                    @if ($item->warga_nik == Auth::guard('warga')->user()->nik)
+                                        <br><span style="font-size: 11px; color: var(--color-2);">(Saya)</span>
                                     @else
-                                        <span style="color:#aaa;">-</span>
+                                        <br><span style="font-size: 11px; color: #888;">(Anggota Keluarga)</span>
                                     @endif
                                 </td>
+
                                 <td style="padding:12px;">{{ $item->jenisSurat->nama_surat ?? 'Data tidak ditemukan' }}</td>
                                 <td style="padding:12px;">{{ ucfirst($item->metode_ambil) }}</td>
                                 <td style="padding:12px; text-align:center;">
@@ -96,7 +99,7 @@
                         @empty
                             <tr>
                                 <td colspan="7" style="padding:30px; text-align:center; color:#888;">
-                                    Belum ada riwayat pengajuan surat.
+                                    Belum ada riwayat pengajuan surat dalam keluarga Anda.
                                 </td>
                             </tr>
                         @endforelse
