@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\KeluargaController as AdminKeluargaController;
 use App\Http\Controllers\Admin\PendudukController;
 use App\Http\Controllers\Admin\KeluhanController;
 use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
+use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\PengaturanDesaController;
 
 use Illuminate\Support\Facades\Route;
@@ -101,7 +102,11 @@ Route::middleware(['auth', 'role:admin,kades'])->group(function () {
     Route::put('/admin/berita/{id}', [AdminBeritaController::class, 'update'])->name('admin.berita.update');
     Route::delete('/admin/berita/{id}', [AdminBeritaController::class, 'destroy'])->name('admin.berita.destroy');
 
-    Route::get('/admin/profile', [DashboardAdminController::class, 'profile'])->name('admin.profile');
+    Route::get('/admin/profile', [AdminProfileController::class, 'index'])->name('admin.profile.index');
+    Route::put('/admin/profile/update', [AdminProfileController::class, 'updateProfile'])->name('admin.profile.update_self');
+    Route::post('/admin/manage', [AdminProfileController::class, 'storeAdmin'])->name('admin.manage.store');
+    Route::put('/admin/manage/{id}', [AdminProfileController::class, 'updateAdmin'])->name('admin.manage.update');
+    Route::delete('/admin/manage/{id}', [AdminProfileController::class, 'destroyAdmin'])->name('admin.manage.destroy');
 
     Route::get('/admin/pengaturan', [PengaturanDesaController::class, 'index'])->name('admin.pengaturan');
     Route::post('/admin/pengaturan/update', [PengaturanDesaController::class, 'update'])->name('admin.pengaturan.update');
