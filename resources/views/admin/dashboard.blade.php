@@ -6,7 +6,7 @@
     <style>
         .welcome-card-admin {
             background-color: #476eae;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 304 304' width='304' height='304'%3E%3Cpath fill='%2348b3af' fill-opacity='0.18' d='M44.1 224a5 5 0 1 1 0 2H0v-2h44.1zm160 48a5 5 0 1 1 0 2H82v-2h122.1zm57.8-46a5 5 0 1 1 0-2H304v2h-42.1zm0 16a5 5 0 1 1 0-2H304v2h-42.1zm6.2-114a5 5 0 1 1 0 2h-86.2a5 5 0 1 1 0-2h86.2zm-256-48a5 5 0 1 1 0 2H0v-2h12.1zm185.8 34a5 5 0 1 1 0-2h86.2a5 5 0 1 1 0 2h-86.2zM258 12.1a5 5 0 1 1-2 0V0h2v12.1zm-64 208a5 5 0 1 1-2 0v-54.2a5 5 0 1 1 2 0v54.2zm48-198.2V80h62v2h-64V21.9a5 5 0 1 1 2 0zm16 16V64h46v2h-48V37.9a5 5 0 1 1 2 0zm-128 96V208h16v12.1a5 5 0 1 1-2 0V210h-16v-76.1a5 5 0 1 1 2 0zm-5.9-21.9a5 5 0 1 1 0 2H114v48H85.9a5 5 0 1 1 0-2H112v-48h12.1zm-6.2 130a5 5 0 1 1 0-2H176v-74.1a5 5 0 1 1 2 0V242h-60.1zm-16-64a5 5 0 1 1 0-2H114v48h10.1a5 5 0 1 1 0 2H112v-48h-10.1zM66 284.1a5 5 0 1 1-2 0V274H50v30h-2v-32h18v12.1zM236.1 176a5 5 0 1 1 0 2H226v94h48v32h-2v-30h-48v-98h12.1zm25.8-30a5 5 0 1 1 0-2H274v44.1a5 5 0 1 1-2 0V146h-10.1zm-64 96a5 5 0 1 1 0-2H208v-80h16v-14h-42.1a5 5 0 1 1 0-2H226v18h-16v80h-12.1zm86.2-210a5 5 0 1 1 0 2H272V0h2v32h10.1zM98 101.9V146H53.9a5 5 0 1 1 0-2H96v-42.1a5 5 0 1 1 2 0zM53.9 34a5 5 0 1 1 0-2H80V0h2v34H53.9zm60.1 3.9V66H82v64H69.9a5 5 0 1 1 0-2H80V64h32V37.9a5 5 0 1 1 2 0zM101.9 82a5 5 0 1 1 0-2H128V37.9a5 5 0 1 1 2 0V82h-28.1zm16-64a5 5 0 1 1 0-2H146v44.1a5 5 0 1 1-2 0V18h-26.1zm102.2 270a5 5 0 1 1 0 2H98v14h-2v-16h124.1zM242 149.9V160h16v34h-16v62h48v48h-2v-46h-48v-66h16v-30h-16v-12.1a5 5 0 1 1 2 0zM53.9 18a5 5 0 1 1 0-2H64V2H48V0h18v18H53.9zm112 32a5 5 0 1 1 0-2H192V0h50v2h-48v48h-28.1zm-48-48a5 5 0 0 1-9.8-2h2.07a3 3 0 1 0 5.66 0H178v34h-18V21.9a5 5 0 1 1 2 0V32h14V2h-58.1zm0 96a5 5 0 1 1 0-2H137l32-32h39V21.9a5 5 0 1 1 2 0V66h-40.17l-32 32H117.9zm28.1 90.1a5 5 0 1 1-2 0v-76.51L175.59 80H224V21.9a5 5 0 1 1 2 0V82h-49.59L146 112.41v75.69zm16 32a5 5 0 1 1-2 0v-99.51L184.59 96H300.1a5 5 0 0 1 3.9-3.9v2.07a3 3 0 0 0 0 5.66v2.07a5 5 0 0 1-3.9-3.9H185.41L162 121.41v98.69zm-144-64a5 5 0 1 1-2 0v-3.51l48-48V48h32V0h2v50H66v55.41l-48 48v2.69zM50 53.9v43.51l-48 48V208h26.1a5 5 0 1 1 0 2H0v-65.41l48-48V53.9a5 5 0 1 1 2 0zm-16 16V89.41l-34 34v-2.82l32-32V69.9a5 5 0 1 1 2 0zM12.1 32a5 5 0 1 1 0 2H9.41L0 43.41V40.6L8.59 32h3.51zm265.8 18a5 5 0 1 1 0-2h18.69l7.41-7.41v2.82L297.41 50H277.9zm-16 160a5 5 0 1 1 0-2H288v-71.41l16-16v2.82l-14 14V210h-28.1zm-208 32a5 5 0 1 1 0-2H64v-22.59L40.59 194H21.9a5 5 0 1 1 0-2H41.41L66 216.59V242H53.9zm150.2 14a5 5 0 1 1 0 2H96v-56.6L56.6 162H37.9a5 5 0 1 1 0-2h19.5L98 200.6V256h106.1zm-150.2 2a5 5 0 1 1 0-2H80v-46.59L48.59 178H21.9a5 5 0 1 1 0-2H49.41L82 208.59V258H53.9zM34 39.8v1.61L9.41 66H0v-2h8.59L32 40.59V0h2v39.8zM2 300.1a5 5 0 0 1 3.9 3.9H3.83A3 3 0 0 0 0 302.17V256h18v48h-2v-46H2v42.1zM34 241v63h-2v-62H0v-2h34v1zM17 18H0v-2h16V0h2v18h-1zm273-2h14v2h-16V0h2v16zm-32 273v15h-2v-14h-14v14h-2v-16h18v1zM0 92.1A5.02 5.02 0 0 1 6 97a5 5 0 0 1-6 4.9v-2.07a3 3 0 1 0 0-5.66V92.1zM80 272h2v32h-2v-32zm37.9 32h-2.07a3 3 0 0 0-5.66 0h-2.07a5 5 0 0 1 9.8 0zM5.9 0A5.02 5.02 0 0 1 0 5.9V3.83A3 3 0 0 0 3.83 0H5.9zm294.2 0h2.07A3 3 0 0 0 304 3.83V5.9a5 5 0 0 1-3.9-5.9zm3.9 300.1v2.07a3 3 0 0 0-1.83 1.83h-2.07a5 5 0 0 1 3.9-3.9zM97 100a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-48 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 96a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-144a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-96 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm96 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-32 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM49 36a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-32 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM33 68a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 240a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm80-176a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm112 176a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17 180a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17 84a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'%3E%3C/path%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,...");
             color: white;
             padding: 30px;
             border-radius: 15px;
@@ -17,7 +17,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
 
         .stat-card {
@@ -51,6 +51,7 @@
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            height: 100%;
         }
 
         .badge-status {
@@ -60,61 +61,74 @@
             font-weight: 600;
         }
 
-        @media (max-width: 768px) {
-            .table-responsive-stack thead {
-                display: none;
-            }
+        .analytic-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed #eee;
+        }
 
-            .table-responsive-stack tr {
-                display: block;
-                margin-bottom: 1rem;
-                border: 1px solid #e3e6f0;
-                border-radius: 10px;
-                background: #fff;
-                padding: 10px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            }
+        .analytic-item:last-child {
+            border-bottom: none;
+        }
 
-            .table-responsive-stack td {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                text-align: right;
-                font-size: 11px;
-                border-bottom: 1px solid #f8f9fc;
-                padding: 8px 5px;
-            }
+        .analytic-label {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
 
-            .table-responsive-stack td:last-child {
-                border-bottom: none;
-                justify-content: center;
-                padding-top: 15px;
-            }
+        .analytic-value {
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: right;
+        }
 
-            .table-responsive-stack td::before {
-                content: attr(data-label);
-                font-weight: 600;
-                text-align: left;
-                text-transform: uppercase;
-                font-size: 9px;
-                color: #858796;
-                flex: 1;
-            }
-
-            .table-responsive-stack td>* {
-                flex: 1;
-            }
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
         }
     </style>
 @endsection
 
 @section('content')
-    <div class="welcome-card-2">
-        <h1>Dashboard Administrator</h1>
-        <p>Selamat datang kembali, <strong>{{ $user->nama }}</strong>. Panel ini memberikan ringkasan aktivitas
-            layanan Desa Krawang Sari hari ini.</p>
+    {{-- Header dengan Toggle Periode --}}
+    <div class="welcome-card-2 d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3 shadow-sm"
+        style="padding: 30px; border-radius: 15px; background-color: var(--color-1); color: white;">
+
+        <div>
+            <h1 class="h3 mb-2" style="font-family: 'Domine', serif; font-weight: 700; color: white;">
+                Dashboard Administrator
+            </h1>
+            <p class="mb-1" style="color: rgba(255,255,255,0.9); font-size: 1rem;">
+                Selamat datang kembali, <strong>{{ $user->name }}</strong>.
+            </p>
+            {{-- Copywriting dengan warna teks yang disesuaikan agar kontras di atas Biru --}}
+            <p class="mb-0 small" style="line-height: 1.6; max-width: 650px; color: rgba(255,255,255,0.75);">
+                Pantau ringkasan performa pelayanan, pergerakan data kependudukan, dan tindak lanjut aspirasi warga secara
+                <em>real-time</em> untuk mendukung tata kelola desa yang optimal.
+            </p>
+        </div>
+
+        {{-- Toggle Button menggunakan --color-2 (Tosca) sebagai penanda aktif --}}
+        <div class="btn-group shadow-sm bg-white rounded p-1" role="group"
+            style="height: fit-content; border: 1px solid rgba(255,255,255,0.1);">
+            <a href="{{ url()->current() }}?periode=semua"
+                class="btn btn-sm px-4 {{ $periode == 'semua' ? 'rounded shadow-sm' : '' }}"
+                style="{{ $periode == 'semua' ? 'background-color: var(--color-2); color: white; border: none; font-weight: 600;' : 'color: #858796; border: none; background: transparent;' }}">
+                Sepanjang Waktu
+            </a>
+            <a href="{{ url()->current() }}?periode=bulan_ini"
+                class="btn btn-sm px-4 {{ $periode == 'bulan_ini' ? 'rounded shadow-sm' : '' }}"
+                style="{{ $periode == 'bulan_ini' ? 'background-color: var(--color-2); color: white; border: none; font-weight: 600;' : 'color: #858796; border: none; background: transparent;' }}">
+                Bulan Ini
+            </a>
+        </div>
     </div>
 
+    {{-- BARIS 1: Kartu Statistik Utama --}}
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-icon" style="background-color: #3498db;"><i class="fas fa-users"></i></div>
@@ -126,7 +140,7 @@
         <div class="stat-card">
             <div class="stat-icon" style="background-color: #e67e22;"><i class="fas fa-file-alt"></i></div>
             <div>
-                <small class="text-muted">Perlu Diproses</small>
+                <small class="text-muted">Surat Menunggu</small>
                 <h3 class="mb-0">{{ $stats['pending'] }}</h3>
             </div>
         </div>
@@ -138,49 +152,130 @@
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon" style="background-color: #9b59b6;"><i class="fas fa-bullhorn"></i></div>
+            <div class="stat-icon" style="background-color: #9b59b6;"><i class="fas fa-newspaper"></i></div>
             <div>
-                <small class="text-muted">Pengumuman Aktif</small>
+                <small class="text-muted">Total Berita</small>
                 <h3 class="mb-0">{{ $stats['berita'] }}</h3>
             </div>
         </div>
     </div>
 
+    {{-- BARIS 2: Panel Analisa (Berdampingan) --}}
+    <div class="row g-4 mb-4">
+        {{-- Analisa Demografi --}}
+        <div class="col-xl-6">
+            <div class="content-section" style="border-top: 4px solid #48B3AF;">
+                <h2 style="font-family: 'Domine'; color: #2c3e50; margin-bottom: 20px; font-size: 1.15rem;"><i
+                        class="fas fa-chart-pie me-2 text-primary"></i> Analisa Demografi Penduduk</h2>
+                <div class="analytic-item"><span class="analytic-label">Rata-rata Anggota / KK</span><span
+                        class="analytic-value">{{ $analisaDemografi['avg_anggota'] }} Jiwa</span></div>
+                <div class="analytic-item"><span class="analytic-label">KK Terbanyak</span><span
+                        class="analytic-value text-success">{{ $analisaDemografi['kk_terbanyak'] ? $analisaDemografi['kk_terbanyak']->nama_kepala_keluarga . ' (' . $analisaDemografi['kk_terbanyak']->anggota_count . ' Jiwa)' : '-' }}</span>
+                </div>
+                <div class="analytic-item"><span class="analytic-label">KK Tersedikit</span><span
+                        class="analytic-value text-danger">{{ $analisaDemografi['kk_tersedikit'] ? $analisaDemografi['kk_tersedikit']->nama_kepala_keluarga . ' (' . $analisaDemografi['kk_tersedikit']->anggota_count . ' Jiwa)' : '-' }}</span>
+                </div>
+                <div class="analytic-item">
+                    <span class="analytic-label">Warga Tertua</span>
+                    <span class="analytic-value">
+                        @if ($analisaDemografi['warga_tertua'])
+                            {{ $analisaDemografi['warga_tertua']->nama_lengkap }}
+                            <small
+                                class="text-muted">({{ \Carbon\Carbon::parse($analisaDemografi['warga_tertua']->tanggal_lahir)->age }}
+                                Thn)</small>
+                        @else
+                            -
+                        @endif
+                    </span>
+                </div>
+                <div class="analytic-item"><span class="analytic-label">Rata-rata Umur Warga</span><span
+                        class="analytic-value">{{ $analisaDemografi['avg_umur'] }} Tahun</span></div>
+            </div>
+        </div>
+
+        {{-- Analisa Keluhan --}}
+        <div class="col-xl-6">
+            <div class="content-section" style="border-top: 4px solid #e74a3b;">
+                <h2 style="font-family: 'Domine'; color: #2c3e50; margin-bottom: 20px; font-size: 1.15rem;"><i
+                        class="fas fa-bullhorn me-2 text-danger"></i> Analisa Pengaduan & Keluhan</h2>
+                <div class="analytic-item"><span class="analytic-label">Jumlah Keluhan Masuk</span><span
+                        class="analytic-value">{{ $analisaKeluhan['masuk'] }} Laporan</span></div>
+                <div class="analytic-item"><span class="analytic-label">Keluhan Diselesaikan</span><span
+                        class="analytic-value text-success">{{ $analisaKeluhan['selesai'] }} Selesai</span></div>
+                <div class="analytic-item"><span class="analytic-label">Kategori Terbanyak</span><span
+                        class="analytic-value">{{ $analisaKeluhan['kategori_terbanyak'] ? $analisaKeluhan['kategori_terbanyak']->kategori . ' (' . $analisaKeluhan['kategori_terbanyak']->total . 'x)' : '-' }}</span>
+                </div>
+                <div class="analytic-item" style="border-bottom: none;">
+                    <span class="analytic-label">Kontributor Teraktif <br><small class="text-muted">(Laporan
+                            Selesai)</small></span>
+                    <span class="analytic-value">
+                        @if ($analisaKeluhan['kontributor_terbanyak'])
+                            {{ $analisaKeluhan['kontributor_terbanyak']->warga->nama_lengkap ?? 'Anonim' }}
+                            <br><small class="text-primary">{{ $analisaKeluhan['kontributor_terbanyak']->total }} Laporan
+                                Selesai</small>
+                        @else
+                            -
+                        @endif
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- BARIS 3: Area Chart / Grafik --}}
+    <div class="row g-4 mb-4">
+        <div class="col-xl-6">
+            <div class="content-section">
+                <h2 style="font-family: 'Domine'; color: #2c3e50; font-size: 1.15rem; margin-bottom: 20px;">Distribusi
+                    Status Pengajuan Surat</h2>
+                <div class="chart-container">
+                    <canvas id="chartSurat"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="content-section">
+                <h2 style="font-family: 'Domine'; color: #2c3e50; font-size: 1.15rem; margin-bottom: 20px;">Distribusi
+                    Kategori Keluhan Warga</h2>
+                <div class="chart-container">
+                    <canvas id="chartKeluhan"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- BARIS 4: Tabel Permohonan (Full Width) --}}
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-12">
             <div class="content-section">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 style="font-family: 'Domine'; color: #2c3e50; margin:0;">Permohonan Surat Terbaru</h2>
-                    <a href="{{ url('/admin/surat-masuk') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
+                    <h2 style="font-family: 'Domine'; color: #2c3e50; margin:0; font-size: 1.25rem;">Permohonan Surat
+                        Terbaru</h2>
+                    <a href="{{ url('/admin/surat-masuk') }}" class="btn btn-sm btn-light border">Kelola Semua Surat</a>
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-hover table-responsive-stack">
-                        <thead>
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
                             <tr>
-                                <th>Nama Pemohon</th>
+                                <th class="ps-3">Nama Pemohon</th>
+                                <th>NIK</th>
                                 <th>Jenis Surat</th>
-                                <th>Tanggal</th>
+                                <th>Tanggal Masuk</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($permohonan_terbaru as $p)
                                 <tr>
-                                    <td data-label="Nama Pemohon">
-                                        <div class="text-start-md">
-                                            <strong>{{ $p->warga->nama_lengkap ?? 'Warga Tidak Terdaftar' }}</strong><br>
-                                            <small class="text-muted">{{ $p->warga_nik }}</small>
-                                        </div>
+                                    <td class="ps-3 fw-bold">{{ $p->warga->nama_lengkap ?? 'Warga Tidak Terdaftar' }}</td>
+                                    <td class="text-muted">{{ $p->warga_nik }}</td>
+                                    <td><span
+                                            class="badge bg-light text-dark border">{{ $p->jenisSurat->nama_surat ?? 'Tidak Diketahui' }}</span>
                                     </td>
-                                    <td data-label="Jenis Surat">
-                                        {{ $p->jenisSurat->nama_surat ?? 'Jenis Surat Tidak Diketahui' }}
-                                    </td>
-                                    <td data-label="Tanggal Pengajuan">
-                                        {{ $p->created_at->format('d/m/Y') }}
-                                    </td>
-                                    <td data-label="Status">
+                                    <td>{{ $p->created_at->format('d M Y, H:i') }}</td>
+                                    <td>
                                         @php
                                             $badgeClass = 'bg-secondary';
                                             if ($p->status == 'Diajukan') {
@@ -193,18 +288,19 @@
                                                 $badgeClass = 'bg-danger';
                                             }
                                         @endphp
-                                        <span class="badge {{ $badgeClass }}">{{ $p->status }}</span>
+                                        <span class="badge-status {{ $badgeClass }}">{{ $p->status }}</span>
                                     </td>
-                                    <td data-label="Opsi">
-                                        <a href="{{ url('/admin/surat-masuk') }}"
-                                            class="btn btn-sm btn-primary w-100-mobile">
-                                            <i class="fas fa-eye me-1"></i> Proses
-                                        </a>
+                                    <td class="text-center">
+                                        <a href="{{ url('/admin/surat-masuk') }}" class="btn btn-sm btn-primary-2"><i
+                                                class="fas fa-search me-1"></i> Proses</a>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center py-4 text-muted">Tidak ada permohonan baru.</td>
+                                    <td colspan="6" class="text-center py-5 text-muted">
+                                        <i class="fas fa-folder-open fa-2x mb-3 opacity-25"></i><br>
+                                        Tidak ada permohonan baru pada periode ini.
+                                    </td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -212,28 +308,72 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="content-section">
-                <h2 style="font-family: 'Domine'; color: #2c3e50;" class="mb-4">Log Aktivitas</h2>
-                <div class="activity-feed">
-                    @forelse($logs as $log)
-                        <div
-                            style="border-left: 2px solid #eee; padding-left: 15px; margin-bottom: 20px; position: relative;">
-                            <div
-                                style="width: 6px; height: 6px; background: #3498db; border-radius: 50%; position: absolute; left: -6px; top: 5px;">
-                            </div>
-                            <small class="text-muted d-block">{{ $log->created_at->diffForHumans() }}</small>
-                            <p class="mb-0" style="font-size: 13px;">
-                                {{ $log->aksi ?? ($log->pesan ?? 'Aktivitas sistem terekam') }}</p>
-                        </div>
-                    @empty
-                        <div class="text-center py-4">
-                            <p class="text-muted" style="font-size: 13px;">Belum ada aktivitas terekam hari ini.</p>
-                        </div>
-                    @endforelse
-                </div>
-            </div>
-        </div>
     </div>
+@endsection
+
+@section('extra-script')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // 1. Chart Status Surat (Doughnut)
+            const ctxSurat = document.getElementById('chartSurat').getContext('2d');
+            new Chart(ctxSurat, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Diajukan (Pending)', 'Diproses', 'Disetujui', 'Ditolak'],
+                    datasets: [{
+                        data: [
+                            {{ $chartSurat['Diajukan'] }},
+                            {{ $chartSurat['Diproses'] }},
+                            {{ $chartSurat['Disetujui'] }},
+                            {{ $chartSurat['Ditolak'] }}
+                        ],
+                        backgroundColor: ['#f6c23e', '#36b9cc', '#1cc88a', '#e74a3b'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        }
+                    }
+                }
+            });
+
+            // 2. Chart Kategori Keluhan (Bar)
+            const ctxKeluhan = document.getElementById('chartKeluhan').getContext('2d');
+            new Chart(ctxKeluhan, {
+                type: 'bar',
+                data: {
+                    labels: {!! json_encode($chartKeluhan['labels']) !!},
+                    datasets: [{
+                        label: 'Jumlah Laporan',
+                        data: {!! json_encode($chartKeluhan['data']) !!},
+                        backgroundColor: '#476eae',
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        } // Precision 0 agar tidak ada angka desimal
+                    }
+                }
+            });
+
+        });
+    </script>
 @endsection
