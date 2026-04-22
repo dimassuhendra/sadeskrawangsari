@@ -15,6 +15,7 @@ use App\Http\Controllers\Penduduk\RiwayatPengajuanController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\SuratMasukController;
 use App\Http\Controllers\Admin\SuratArsipController;
+use App\Http\Controllers\Admin\KeluargaController as AdminKeluargaController;
 use App\Http\Controllers\Admin\PendudukController;
 use App\Http\Controllers\Admin\PengaturanDesaController;
 
@@ -70,13 +71,17 @@ Route::middleware(['auth', 'role:admin,kades'])->group(function () {
     Route::get('/admin/surat-detail/{id}', [SuratMasukController::class, 'show'])->name('admin.surat-detail');
     Route::get('/admin/surat-cetak/{id}', [SuratMasukController::class, 'cetakSurat'])->name('admin.surat-cetak');
 
-    Route::get('/admin/surat-masuk', [DashboardAdminController::class, 'suratMasuk'])->name('admin.surat-masuk');
     Route::get('/admin/surat-arsip', [SuratArsipController::class, 'index'])->name('admin.surat-arsip');
-    Route::get('/admin/surat-proses', [DashboardAdminController::class, 'suratProses'])->name('admin.surat-proses');
 
+    Route::get('/admin/penduduk', [PendudukController::class, 'index'])->name('admin.penduduk');
+    Route::get('/admin/penduduk/export-proses', [PendudukController::class, 'exportData'])->name('admin.penduduk.export');
+    Route::get('/admin/penduduk/detail/{nik}', [PendudukController::class, 'show'])->name('admin.penduduk.show');
+    Route::delete('/admin/penduduk/{nik}', [PendudukController::class, 'destroy'])->name('penduduk.destroy');
 
-    Route::get('/admin/penduduk', [DashboardAdminController::class, 'wargaIndex'])->name('admin.warga.index');
-    Route::get('/admin/keluarga', [DashboardAdminController::class, 'keluargaIndex'])->name('admin.keluarga.index');
+    Route::get('/admin/keluarga', [AdminKeluargaController::class, 'index'])->name('admin.keluarga.index');
+    Route::post('/admin/keluarga', [AdminKeluargaController::class, 'store'])->name('admin.keluarga.store');
+    Route::put('/admin/keluarga/{id}', [AdminKeluargaController::class, 'update'])->name('admin.keluarga.update');
+    Route::delete('/admin/keluarga/{id}', [AdminKeluargaController::class, 'destroy'])->name('admin.keluarga.destroy');
 
     Route::get('/admin/pengaduan', [DashboardAdminController::class, 'pengaduanIndex'])->name('admin.pengaduan.index');
     Route::get('/admin/berita', [DashboardAdminController::class, 'beritaIndex'])->name('admin.berita.index');
@@ -86,10 +91,6 @@ Route::middleware(['auth', 'role:admin,kades'])->group(function () {
     Route::get('/admin/pengaturan', [PengaturanDesaController::class, 'index'])->name('admin.pengaturan');
     Route::post('/admin/pengaturan/update', [PengaturanDesaController::class, 'update'])->name('admin.pengaturan.update');
 
-    Route::get('/admin/penduduk', [PendudukController::class, 'index'])->name('admin.penduduk');
-    Route::get('/admin/penduduk/export-proses', [PendudukController::class, 'exportData'])->name('admin.penduduk.export');
-    Route::get('/admin/{nik}', [PendudukController::class, 'show'])->name('admin.penduduk.show');
-    Route::delete('/admin/penduduk/{nik}', [PendudukController::class, 'destroy'])->name('penduduk.destroy');
 
     Route::post('/logout-admin', [LoginAdminController::class, 'logout'])->name('admin.logout');
 });

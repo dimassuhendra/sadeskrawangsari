@@ -8,7 +8,7 @@ $nama_hari = [
     'Wednesday' => 'Rabu',
     'Thursday' => 'Kamis',
     'Friday' => 'Jumat',
-    'Saturday' => 'Sabtu'
+    'Saturday' => 'Sabtu',
 ];
 
 $nama_bulan = [
@@ -23,7 +23,7 @@ $nama_bulan = [
     'September',
     'Oktober',
     'November',
-    'Desember'
+    'Desember',
 ];
 
 $hari = $nama_hari[date('l')];
@@ -106,7 +106,8 @@ $tahun = date('Y');
 </style>
 
 <div class="sidebar">
-    <div class="sidebar-header" style="padding: 30px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); position: relative; flex-shrink: 0;">
+    <div class="sidebar-header"
+        style="padding: 30px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); position: relative; flex-shrink: 0;">
         <button onclick="toggleSidebar()" class="d-lg-none"
             style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: white; opacity: 0.5;">
             <i class="fas fa-times"></i>
@@ -118,41 +119,57 @@ $tahun = date('Y');
 
     <nav class="sidebar-menu" style="padding: 20px 0; display: flex; flex-direction: column; flex-grow: 1;">
 
-        <small class="menu-label" style="display: block; padding: 10px 25px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Ikhtisar</small>
-        <a href="{{ route('admin.dashboard') }}" class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+        <small class="menu-label"
+            style="display: block; padding: 10px 25px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Ikhtisar</small>
+        <a href="{{ route('admin.dashboard') }}"
+            class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
             <i class="fas fa-chart-line"></i> Statistik Desa
         </a>
 
-        <small class="menu-label" style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Manajemen Surat</small>
-        <a href="{{ route('admin.surat-masuk') }}" class="menu-item {{ request()->routeIs('admin.surat-masuk') ? 'active' : '' }}">
+        <small class="menu-label"
+            style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Manajemen
+            Surat</small>
+        <a href="{{ route('admin.surat-masuk') }}"
+            class="menu-item {{ request()->routeIs('admin.surat-masuk') ? 'active' : '' }}">
             <i class="fas fa-envelope-open-text"></i> Permohonan Baru
             <span class="badge-count">5</span>
         </a>
-        <a href="{{ route('admin.surat-arsip') }}" class="menu-item">
+        <a href="{{ route('admin.surat-arsip') }}"
+            class="menu-item {{ request()->routeIs('admin.surat-arsip') ? 'active' : '' }}">
             <i class="fas fa-archive"></i> Arsip Surat Selesai
         </a>
 
-        <small class="menu-label" style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Kependudukan</small>
-        <a href="{{ route('admin.penduduk') }}" class="menu-item {{ request()->routeIs('admin.penduduk') ? 'active' : '' }}">
+        <small class="menu-label"
+            style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Kependudukan</small>
+        <a href="{{ route('admin.penduduk') }}"
+            class="menu-item {{ request()->routeIs('admin.penduduk') ? 'active' : '' }}">
             <i class="fas fa-users"></i> Data Penduduk
         </a>
-        <a href="{{ route('admin.keluarga.index') }}" class="menu-item">
+        <a href="{{ route('admin.keluarga.index') }}"
+            class="menu-item {{ request()->routeIs('admin.keluarga.*') ? 'active' : '' }}">
             <i class="fas fa-address-card"></i> Kartu Keluarga
         </a>
 
-        <small class="menu-label" style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Interaksi Publik</small>
-        <a href="{{ route('admin.pengaduan.index') }}" class="menu-item {{ request()->routeIs('admin.pengaduan.*') ? 'active' : '' }}">
+        <small class="menu-label"
+            style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Interaksi
+            Publik</small>
+        <a href="{{ route('admin.pengaduan.index') }}"
+            class="menu-item {{ request()->routeIs('admin.pengaduan.*') ? 'active' : '' }}">
             <i class="fas fa-exclamation-circle"></i> Keluhan Warga
         </a>
-        <a href="{{ route('admin.berita.index') }}" class="menu-item">
+        <a href="{{ route('admin.berita.index') }}"
+            class="menu-item {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
             <i class="fas fa-newspaper"></i> Kelola Berita
         </a>
 
-        <small class="menu-label" style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Sistem</small>
-        <a href="{{ route('admin.profile') }}" class="menu-item">
+        <small class="menu-label"
+            style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Sistem</small>
+        <a href="{{ route('admin.profile') }}"
+            class="menu-item {{ request()->routeIs('admin.profile') ? 'active' : '' }}">
             <i class="fas fa-user-shield"></i> Profil Admin
         </a>
-        <a href="{{ route('admin.pengaturan') }}" class="menu-item">
+        <a href="{{ route('admin.pengaturan') }}"
+            class="menu-item {{ request()->routeIs('admin.pengaturan') ? 'active' : '' }}">
             <i class="fas fa-cog"></i> Pengaturan Desa
         </a>
 
