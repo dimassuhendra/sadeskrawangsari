@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginWargaController;
 use App\Http\Controllers\Auth\RegisterWargaController;
 use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\BeritaController;
 
 use App\Http\Controllers\Penduduk\DashboardWargaController;
 use App\Http\Controllers\Penduduk\PengajuanSuratController;
@@ -17,12 +18,16 @@ use App\Http\Controllers\Admin\SuratMasukController;
 use App\Http\Controllers\Admin\SuratArsipController;
 use App\Http\Controllers\Admin\KeluargaController as AdminKeluargaController;
 use App\Http\Controllers\Admin\PendudukController;
+use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\PengaturanDesaController;
 
 use Illuminate\Support\Facades\Route;
 
 // Route Pengunjung
 Route::get('/', [LandingPageController::class, 'index'])->name('landingpage');
+
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
 // Login Warga
 Route::middleware(['guest'])->group(function () {
@@ -84,7 +89,11 @@ Route::middleware(['auth', 'role:admin,kades'])->group(function () {
     Route::delete('/admin/keluarga/{id}', [AdminKeluargaController::class, 'destroy'])->name('admin.keluarga.destroy');
 
     Route::get('/admin/pengaduan', [DashboardAdminController::class, 'pengaduanIndex'])->name('admin.pengaduan.index');
-    Route::get('/admin/berita', [DashboardAdminController::class, 'beritaIndex'])->name('admin.berita.index');
+
+    Route::get('/admin/berita', [AdminBeritaController::class, 'index'])->name('admin.berita.index');
+    Route::post('/admin/berita', [AdminBeritaController::class, 'store'])->name('admin.berita.store');
+    Route::put('/admin/berita/{id}', [AdminBeritaController::class, 'update'])->name('admin.berita.update');
+    Route::delete('/admin/berita/{id}', [AdminBeritaController::class, 'destroy'])->name('admin.berita.destroy');
 
     Route::get('/admin/profile', [DashboardAdminController::class, 'profile'])->name('admin.profile');
 

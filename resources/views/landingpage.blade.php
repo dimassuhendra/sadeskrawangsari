@@ -378,18 +378,25 @@
             <div class="grid-berita">
                 @foreach ($berita as $item)
                     <div class="card-berita">
-                        <img src="{{ isset($item->gambar) ? asset('storage/' . $item->gambar) : 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=500&auto=format&fit=crop' }}"
+                        <img src="{{ !empty($item->gambar) ? asset('storage/' . $item->gambar) : 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=500&auto=format&fit=crop' }}"
                             alt="Berita" class="berita-img">
                         <div class="berita-content">
                             <span class="berita-tgl"><i class="far fa-calendar-alt me-1"></i>
                                 {{ $item->created_at->translatedFormat('d F Y') }}</span>
                             <h3>{{ $item->judul }}</h3>
                             <p>{{ Str::limit(strip_tags($item->isi), 120) }}</p>
-                            <a href="#" class="berita-link">Baca Selengkapnya <i
+                            <a href="{{ route('berita.show', $item->slug) }}" class="berita-link">Baca Selengkapnya <i
                                     class="fas fa-arrow-right ms-1"></i></a>
                         </div>
                     </div>
                 @endforeach
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="{{ route('berita.index') }}"
+                    style="background-color: #2c3e50; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: 0.3s; display: inline-block;">
+                    Lihat Semua Berita <i class="fas fa-newspaper ms-2"></i>
+                </a>
             </div>
         @else
             <div class="text-center text-muted" style="background: white; padding: 40px; border-radius: 15px;">
