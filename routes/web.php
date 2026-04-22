@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterWargaController;
 use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\KeluhanPublikController;
 
 use App\Http\Controllers\Penduduk\DashboardWargaController;
 use App\Http\Controllers\Penduduk\PengajuanSuratController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Admin\SuratMasukController;
 use App\Http\Controllers\Admin\SuratArsipController;
 use App\Http\Controllers\Admin\KeluargaController as AdminKeluargaController;
 use App\Http\Controllers\Admin\PendudukController;
+use App\Http\Controllers\Admin\KeluhanController;
 use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\PengaturanDesaController;
 
@@ -28,6 +30,8 @@ Route::get('/', [LandingPageController::class, 'index'])->name('landingpage');
 
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
+
+Route::get('/suara-warga', [KeluhanPublikController::class, 'index'])->name('keluhan');
 
 // Login Warga
 Route::middleware(['guest'])->group(function () {
@@ -88,7 +92,9 @@ Route::middleware(['auth', 'role:admin,kades'])->group(function () {
     Route::put('/admin/keluarga/{id}', [AdminKeluargaController::class, 'update'])->name('admin.keluarga.update');
     Route::delete('/admin/keluarga/{id}', [AdminKeluargaController::class, 'destroy'])->name('admin.keluarga.destroy');
 
-    Route::get('/admin/pengaduan', [DashboardAdminController::class, 'pengaduanIndex'])->name('admin.pengaduan.index');
+    Route::get('/admin/keluhan', [KeluhanController::class, 'index'])->name('admin.keluhan.index');
+    Route::put('/admin/keluhan/{id}', [KeluhanController::class, 'update'])->name('admin.keluhan.update');
+    Route::delete('/admin/keluhan/{id}', [KeluhanController::class, 'destroy'])->name('admin.keluhan.destroy');
 
     Route::get('/admin/berita', [AdminBeritaController::class, 'index'])->name('admin.berita.index');
     Route::post('/admin/berita', [AdminBeritaController::class, 'store'])->name('admin.berita.store');

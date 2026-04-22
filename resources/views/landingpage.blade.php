@@ -302,6 +302,55 @@
                 margin: 0 auto;
             }
         }
+
+        /* 6. Suara Warga (Keluhan) */
+        .card-keluhan {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid #1cc88a;
+            /* Warna hijau penanda selesai */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .keluhan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .pelapor-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pelapor-avatar {
+            width: 40px;
+            height: 40px;
+            background: #eef2f7;
+            color: #2c3e50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .tanggapan-admin {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #3a918e;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #555;
+            flex-grow: 1;
+        }
     </style>
 </head>
 
@@ -402,6 +451,66 @@
             <div class="text-center text-muted" style="background: white; padding: 40px; border-radius: 15px;">
                 <i class="fas fa-newspaper fa-3x mb-3 opacity-25"></i>
                 <p>Belum ada kabar atau pengumuman terbaru.</p>
+            </div>
+        @endif
+    </section>
+
+    <section class="section-container">
+        <div class="section-title">
+            <h2>Suara Warga (Telah Ditindaklanjuti)</h2>
+            <p class="text-muted">Transparansi penyelesaian aspirasi dan pengaduan masyarakat desa.</p>
+        </div>
+
+        @if (isset($keluhan_selesai) && $keluhan_selesai->count() > 0)
+            <div class="grid-berita">
+                @foreach ($keluhan_selesai as $item)
+                    <div class="card-keluhan">
+                        <div class="keluhan-header">
+                            <div class="pelapor-info">
+                                <div class="pelapor-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    {{-- Privasi: Kita samarkan sedikit nama belakang pelapor --}}
+                                    @php
+                                        $nama = $item->warga->nama_lengkap ?? 'Anonim';
+                                        $nama_samaran = strlen($nama) > 5 ? substr($nama, 0, 4) . '***' : $nama;
+                                    @endphp
+                                    <div style="font-weight: 600; color: #2c3e50; font-size: 0.95rem;">
+                                        {{ $nama_samaran }}</div>
+                                    <div style="font-size: 0.8rem; color: #888;">
+                                        {{ $item->updated_at->diffForHumans() }}</div>
+                                </div>
+                            </div>
+                            <span class="badge"
+                                style="background: #e3fbed; color: #1cc88a; padding: 5px 10px; border-radius: 20px; font-size: 0.75rem;"><i
+                                    class="fas fa-check-circle me-1"></i> Selesai</span>
+                        </div>
+                        <h4 style="font-size: 1.1rem; margin-bottom: 10px; color: #333;">{{ $item->judul }}</h4>
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 0;">
+                            {{ Str::limit($item->isi_pengaduan, 100) }}</p>
+
+                        @if ($item->tanggapan_admin)
+                            <div class="tanggapan-admin">
+                                <strong style="color: #3a918e; display: block; margin-bottom: 5px;"><i
+                                        class="fas fa-reply me-1"></i> Respon Desa:</strong>
+                                {{ Str::limit($item->tanggapan_admin, 120) }}
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+
+            <div style="text-align: center; margin-top: 70px;">
+                <a href="{{ route('keluhan') }}"
+                    style="background-color: #f8f9fa; color: #2c3e50; border: 2px solid #2c3e50; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: 0.3s; display: inline-block;">
+                    Lihat Seluruh Laporan <i class="fas fa-bullhorn ms-2"></i>
+                </a>
+            </div>
+        @else
+            <div class="text-center text-muted" style="background: white; padding: 40px; border-radius: 15px;">
+                <i class="fas fa-inbox fa-3x mb-3 opacity-25"></i>
+                <p>Belum ada laporan keluhan yang masuk atau diselesaikan.</p>
             </div>
         @endif
     </section>

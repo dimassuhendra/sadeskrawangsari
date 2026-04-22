@@ -3,23 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Berita;
 use Illuminate\Support\Facades\DB;
+use App\Models\Berita;
+use App\Models\Pengaduan; // Pastikan Model Pengaduan di-import
 
 class LandingPageController extends Controller
 {
     public function index()
     {
-        // 1. Ambil semua pengaturan desa (termasuk yang baru kita tambahkan)
         $pengaturan = DB::table('pengaturan_desa')->where('id', 1)->first();
 
-        // 2. Ambil 3 berita terbaru yang publish
-        $berita = Berita::where('status', 'publish')
-            ->latest()
+        // Ambil 3 berita terbaru
+        $berita = Berita::where('status', 'publish')->latest()->take(3)->get();
+
+        // Ambil 3 keluhan warga yang sudah berstatus 'Selesai'
+        $keluhan_selesai = Pengaduan::with('warga')
+            ->where('status', 'Selesai')
+            ->latest('updated_at')
             ->take(3)
             ->get();
 
-        // 3. Kirim ke view
-        return view('landingpage', compact('pengaturan', 'berita'));
+        return view('landingpage', compact('pengaturan', 'berita', 'keluhan_selesai'));
     }
 }

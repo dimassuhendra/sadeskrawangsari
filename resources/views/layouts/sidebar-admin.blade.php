@@ -153,8 +153,8 @@ $tahun = date('Y');
         <small class="menu-label"
             style="display: block; padding: 20px 25px 10px; opacity: 0.5; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;">Interaksi
             Publik</small>
-        <a href="{{ route('admin.pengaduan.index') }}"
-            class="menu-item {{ request()->routeIs('admin.pengaduan.*') ? 'active' : '' }}">
+        <a href="{{ route('admin.keluhan.index') }}"
+            class="menu-item {{ request()->routeIs('admin.keluhan.*') ? 'active' : '' }}">
             <i class="fas fa-exclamation-circle"></i> Keluhan Warga
         </a>
         <a href="{{ route('admin.berita.index') }}"

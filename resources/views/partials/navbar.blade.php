@@ -42,7 +42,8 @@
             <i class="fas fa-chart-bar"></i> Statistik Penduduk
         </a>
 
-        <div class="dropdown {{ Request::is('informasi*') || Request::is('berita*') ? 'active-parent' : '' }}">
+        <div
+            class="dropdown {{ request()->routeIs('berita.*') || request()->routeIs('keluhan') ? 'active-parent' : '' }}">
             <button class="dropbtn">
                 <i class="fas fa-info-circle"></i> Kabar Desa <i class="fas fa-caret-down"></i>
             </button>
@@ -51,9 +52,10 @@
                     style="{{ request()->routeIs('berita.*') ? 'color: #3a918e; font-weight: bold;' : '' }}">
                     <i class="fas fa-newspaper"></i> Berita Desa
                 </a>
-
-                <a href="/informasi/pengumuman"><i class="fas fa-bullhorn"></i> Pengumuman</a>
-                <a href="/informasi/transparansi"><i class="fas fa-file-invoice-dollar"></i> Transparansi APBDes</a>
+                <a href="{{ route('keluhan') }}"
+                    style="{{ request()->routeIs('keluhan') ? 'color: #3a918e; font-weight: bold;' : '' }}">
+                    <i class="fas fa-comment-dots"></i> Keluhan Publik
+                </a>
             </div>
         </div>
 
