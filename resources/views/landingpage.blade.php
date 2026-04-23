@@ -20,7 +20,6 @@
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f8f9fa;
-            color: #333;
             margin: 0;
             padding: 0;
         }
@@ -29,16 +28,18 @@
         h2,
         h3 {
             font-family: 'Domine', serif;
-            color: #2c3e50;
         }
 
         /* 1. Hero Section */
         .hero-section {
             position: relative;
-            background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.8)),
-                url('{{ isset($pengaturan->hero_image) ? asset('storage/' . $pengaturan->hero_image) : 'https://images.unsplash.com/photo-1596422846543-74c6fc0e34c1?q=80&w=2070&auto=format&fit=crop' }}');
+            /* Menggunakan gradasi agar teks putih tetap mudah dibaca di atas gambar terang */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+                url('{{ isset($pengaturan->hero_image) ? asset('storage/' . $pengaturan->hero_image) : 'https://images.unsplash.com/photo-1559415718-d82869275533?q=80&w=2070&auto=format&fit=crop' }}');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
+            /* Memberikan efek parallax sederhana saat di-scroll */
             height: 80vh;
             display: flex;
             align-items: center;
@@ -262,26 +263,112 @@
             text-decoration: underline;
         }
 
-        /* 5. Visi Misi */
-        .visi-misi-box {
-            background: #2c3e50;
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
+        /* 5. Visi Misi (Modern Split Layout) */
+        .visi-misi-wrapper {
+            display: flex;
+            flex-direction: column;
+            background: white;
             border-radius: 20px;
-            margin-bottom: 60px;
+            overflow: hidden;
+            margin-bottom: 80px;
         }
 
-        .visi-misi-box h2 {
+        .visi-misi-header {
+            /* Menggunakan gradasi dari color-1 ke color-2 */
+            background: linear-gradient(135deg, var(--color-1), var(--color-2));
             color: white;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
         }
 
-        .visi-misi-box .konten-text {
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
-            font-size: 1.1rem;
+        .visi-misi-header i {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--color-4);
+            /* Aksen warna kuning/terang Anda */
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+        }
+
+        .visi-misi-header h2 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .visi-misi-header p {
             opacity: 0.9;
+            margin: 0;
+            font-size: 1rem;
+            max-width: 250px;
+        }
+
+        .visi-misi-content {
+            padding: 40px;
+            flex: 1;
+            position: relative;
+            background: white;
+        }
+
+        .bg-quote {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 5rem;
+            color: var(--color-2);
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        /* Format khusus untuk tulisan dari CKEditor agar lebih rapi */
+        .visi-misi-content .konten-text {
+            position: relative;
+            z-index: 1;
+            color: #444;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            text-align: left;
+            /* Rata kiri agar poin-poin mudah dibaca */
+        }
+
+        .visi-misi-content .konten-text p {
+            margin-bottom: 15px;
+        }
+
+        .visi-misi-content .konten-text ul,
+        .visi-misi-content .konten-text ol {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .visi-misi-content .konten-text li {
+            margin-bottom: 10px;
+        }
+
+        .visi-misi-content .konten-text li::marker {
+            color: var(--color-2);
+            font-weight: bold;
+        }
+
+        /* Tampilan Desktop (Kiri-Kanan) */
+        @media (min-width: 992px) {
+            .visi-misi-wrapper {
+                flex-direction: row;
+            }
+
+            .visi-misi-header {
+                flex: 0 0 35%;
+                /* Mengambil 35% lebar layar */
+            }
+
+            .visi-misi-content {
+                padding: 60px 50px;
+            }
         }
 
         /* Responsive */
@@ -516,15 +603,22 @@
     </section>
 
     <section class="section-container">
-        <div class="visi-misi-box shadow-lg">
-            <h2 style="margin-bottom: 30px;">Visi & Misi</h2>
-            @if (isset($pengaturan->visi_misi) && $pengaturan->visi_misi != '')
-                <div class="konten-text">
-                    {!! $pengaturan->visi_misi !!}
-                </div>
-            @else
-                <p><em>Konten Visi & Misi belum tersedia.</em></p>
-            @endif
+        <div class="visi-misi-wrapper shadow-lg">
+            <div class="visi-misi-header">
+                <i class="fas fa-bullseye"></i>
+                <h2>Visi & Misi</h2>
+                <p>Arah dan tujuan pembangunan desa untuk masa depan yang lebih baik.</p>
+            </div>
+            <div class="visi-misi-content">
+                <i class="fas fa-quote-left bg-quote"></i>
+                @if (isset($pengaturan->visi_misi) && $pengaturan->visi_misi != '')
+                    <div class="konten-text">
+                        {!! $pengaturan->visi_misi !!}
+                    </div>
+                @else
+                    <p class="text-muted text-center py-4"><em>Konten Visi & Misi belum tersedia.</em></p>
+                @endif
+            </div>
         </div>
     </section>
 

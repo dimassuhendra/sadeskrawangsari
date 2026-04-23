@@ -23,11 +23,11 @@
             <div class="dropdown-content">
                 <a href="/profil/sejarah"><i class="fas fa-history"></i> Sejarah & Wilayah</a>
                 <a href="/profil/visi-misi"><i class="fas fa-bullseye"></i> Visi & Misi</a>
-                <a href="/profil/perangkat"><i class="fas fa-users"></i> Perangkat Desa</a>
+                {{-- <a href="/profil/perangkat"><i class="fas fa-users"></i> Perangkat Desa</a> --}}
             </div>
         </div>
 
-        <div class="dropdown {{ Request::is('layanan*') ? 'active-parent' : '' }}">
+        {{-- <div class="dropdown {{ Request::is('layanan*') ? 'active-parent' : '' }}">
             <button class="dropbtn">
                 <i class="fas fa-concierge-bell"></i> Layanan Penduduk <i class="fas fa-caret-down"></i>
             </button>
@@ -36,7 +36,11 @@
                 <a href="/layanan/ajukan"><i class="fas fa-file-signature"></i> Ajukan Surat Online</a>
                 <a href="/layanan/status"><i class="fas fa-tasks"></i> Cek Status Permohonan</a>
             </div>
-        </div>
+        </div> --}}
+
+        <a href="/login-warga" class="{{ Request::is('login') ? 'active' : '' }}">
+            <i class="fas fa-chart-bar"></i> Ajukan Surat Online
+        </a>
 
         <a href="/statistik" class="{{ Request::is('statistik*') ? 'active' : '' }}">
             <i class="fas fa-chart-bar"></i> Statistik Penduduk

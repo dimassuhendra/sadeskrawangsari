@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\KeluhanPublikController;
+use App\Http\Controllers\HalamanPublikController;
 
 use App\Http\Controllers\Penduduk\DashboardWargaController;
 use App\Http\Controllers\Penduduk\PengajuanSuratController;
@@ -33,6 +34,19 @@ Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
 Route::get('/suara-warga', [KeluhanPublikController::class, 'index'])->name('keluhan');
+
+// --- MENU PROFIL DESA ---
+Route::get('/profil/sejarah', [HalamanPublikController::class, 'sejarah'])->name('profil.sejarah');
+Route::get('/profil/visi-misi', [HalamanPublikController::class, 'visiMisi'])->name('profil.visi_misi');
+Route::get('/profil/perangkat', [HalamanPublikController::class, 'perangkat'])->name('profil.perangkat');
+
+// --- MENU LAYANAN PENDUDUK ---
+Route::get('/layanan/panduan', [HalamanPublikController::class, 'panduan'])->name('layanan.panduan');
+Route::get('/layanan/ajukan', [HalamanPublikController::class, 'ajukan'])->name('layanan.ajukan');
+Route::get('/layanan/status', [HalamanPublikController::class, 'status'])->name('layanan.status');
+
+// --- MENU STATISTIK ---
+Route::get('/statistik', [HalamanPublikController::class, 'statistik'])->name('statistik.index');
 
 // Login Warga
 Route::middleware(['guest'])->group(function () {
