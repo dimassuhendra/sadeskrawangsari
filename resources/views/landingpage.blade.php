@@ -597,7 +597,7 @@
         @else
             <div class="text-center text-muted" style="background: white; padding: 40px; border-radius: 15px;">
                 <i class="fas fa-inbox fa-3x mb-3 opacity-25"></i>
-                <p>Belum ada laporan keluhan yang masuk atau diselesaikan.</p>
+                <p>Belum ada laporan keluhan yang masuk atau diselesaikan uji.</p>
             </div>
         @endif
     </section>
