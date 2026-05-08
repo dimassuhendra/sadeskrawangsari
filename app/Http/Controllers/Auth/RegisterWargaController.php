@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User; // Pastikan Model User di-import
 use App\Models\Warga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB; // Import DB untuk Transaction
 
 class RegisterWargaController extends Controller
 {
@@ -16,9 +18,10 @@ class RegisterWargaController extends Controller
 
     public function register(Request $request)
     {
+        // 1. Validasi Data
         $request->validate([
             'nik' => 'required|digits:16',
-            'email' => 'required|email|unique:warga,email',
+            'email' => 'required|email|unique:users,email', // Ubah validasi unique ke tabel users
             'password' => 'required|min:8|confirmed',
         ], [
             'nik.digits' => 'NIK harus berjumlah 16 digit.',
@@ -26,28 +29,48 @@ class RegisterWargaController extends Controller
             'password.confirmed' => 'Konfirmasi password tidak cocok.'
         ]);
 
-        // MENGGUNAKAN updateOrCreate: 
-        // Jika NIK ditemukan, maka email & password diupdate (aktivasi).
-        // Jika NIK tidak ditemukan, maka baris baru akan dibuat (otomatis tambah data warga).
-        Warga::updateOrCreate(
-            ['nik' => $request->nik], // Cari berdasarkan NIK
-            [
+        // Gunakan DB Transaction agar aman (jika gagal satu, gagal semua)
+        try {
+            DB::beginTransaction();
+
+            // 2. Buat Akun Login di tabel users
+            $user = User::create([
+                'name' => $request->nama_lengkap ?? 'Warga Baru',
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'nama_lengkap' => $request->nama_lengkap ?? 'Warga Baru',
-                'tempat_lahir' => $request->tempat_lahir ?? 'Indonesia',
-                'tanggal_lahir' => $request->tanggal_lahir ?? '1991-01-01',
-                'jenis_kelamin' => $request->jenis_kelamin ?? 'P',
-                'alamat_jalan' => $request->alamat_jalan ?? 'Indonesia',
-                'rt_rw' => $request->rt_rw ?? '01/01',
-                'kel_desa' => $request->kel_desa ?? 'Indonesia',
-                'kecamatan' => $request->kecamatan ?? 'Indonesia',
-                'agama' => $request->agama ?? 'Islam',
-                'status_perkawinan' => $request->status_perkawinan ?? 'Belum Kawin',
-                'pekerjaan' => $request->pekerjaan ?? 'Belum ada pekerjaan'
-            ]
-        );
+                // 'role' => 'warga', // Opsional: Buka komentar ini jika tabel users Anda menggunakan sistem role
+            ]);
 
-        return redirect()->route('login-warga')->with('success', 'Akun berhasil didaftarkan! Silahkan login.');
+            // 3. Update atau Create data profil di tabel warga
+            Warga::updateOrCreate(
+                ['nik' => $request->nik], // Cari berdasarkan NIK
+                [
+                    'user_id' => $user->id, // Hubungkan (Relasikan) dengan ID dari tabel users
+
+                    // Kolom email dan password dihapus dari sini karena sudah masuk ke tabel users
+                    'nama_lengkap' => $request->nama_lengkap ?? 'Warga Baru',
+                    'tempat_lahir' => $request->tempat_lahir ?? 'Indonesia',
+                    'tanggal_lahir' => $request->tanggal_lahir ?? '1991-01-01',
+                    'jenis_kelamin' => $request->jenis_kelamin ?? 'P',
+                    'alamat_jalan' => $request->alamat_jalan ?? 'Indonesia',
+                    'rt_rw' => $request->rt_rw ?? '01/01',
+                    'kel_desa' => $request->kel_desa ?? 'Indonesia',
+                    'kecamatan' => $request->kecamatan ?? 'Indonesia',
+                    'agama' => $request->agama ?? 'Islam',
+                    'status_perkawinan' => $request->status_perkawinan ?? 'Belum Kawin',
+                    'pekerjaan' => $request->pekerjaan ?? 'Belum ada pekerjaan'
+                ]
+            );
+
+            // Jika semua berhasil, simpan ke database
+            DB::commit();
+
+            return redirect()->route('login.warga')->with('success', 'Akun berhasil didaftarkan! Silahkan login.');
+        } catch (\Exception $e) {
+            // Jika ada error (misal database mati), batalkan semua proses
+            DB::rollBack();
+            // Kembalikan user ke halaman form dengan pesan error
+            return back()->withInput()->withErrors(['error' => 'Terjadi kesalahan sistem: ' . $e->getMessage()]);
+        }
     }
 }
